@@ -1,0 +1,24 @@
+use td2ex_mlab_report;1
+
+
+CREATE EXTERNAL TABLE `stage_blood_bank_sp_demo`(
+  `order_y` bigint,
+  `order_m` bigint,
+  `pat_total` bigint,
+  `order_total` bigint,
+  `test_total` bigint)
+ROW FORMAT SERDE
+  'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+STORED AS INPUTFORMAT
+  'org.apache.hadoop.mapred.TextInputFormat'
+OUTPUTFORMAT
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  'hdfs://ttgbk-pr-hadp-8.ttgtpmg.net:8020/ttg/microbiology/database/td2ex_mlab_report/stage_blood_bank_sp_demo'
+TBLPROPERTIES (
+  'numFiles'='1',
+  'totalSize'='770',
+  'transient_lastDdlTime'='1541011813');
+
+
+hadoop fs -chmod -R 777 /ttg/microbiology/database/td2ex_mlab_report/stage_blood_bank_sp_demo

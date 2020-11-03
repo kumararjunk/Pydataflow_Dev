@@ -1,0 +1,36 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Signup Close{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% load i18n %}
+{% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
+
+
+{% block body %}
+<style>
+.panel-default {
+    border-color: #ddd;
+    width: 240px;
+    height: 240px;
+}
+</style>
+
+<body class="text-center">
+  <div class="col-sm-4 col-sm-offset-4">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+<h1>{% trans "Sign Up Closed" %}</h1>
+<p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+{% endblock %}

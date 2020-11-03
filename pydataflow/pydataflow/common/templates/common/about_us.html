@@ -1,0 +1,65 @@
+
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+
+{% block styles %}
+<style>
+.jumbotron {
+	text-align: center;
+
+}
+
+
+</style>
+{% endblock %}
+
+{% block jumbotron %}
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Data Ingestion from Rdbms to Hadoop/Hive. </h1>
+        <p>ETL Control interface is created using Django 2.3, Python 3.6, Bootstrap, jquery, css other script languages. It is used to manage the data ingestion from Teradata, Oracle, SQL server, and DB2 to Hadoop. It can also load flat files, like Excel file, csv file, or other delimited text files. The ingested data from varieties of data sources makes the data center in Hadoop for RLTG Reporting Platform from which the Tableau reports get data. The ETL Control manages the data pipe line and control the flow execution. It significantly simplifies the complex, lengthy and inefficient ETL process.</p>
+      </div>
+
+{% endblock %}
+
+{% block content %}
+<div class="row">
+        <div class="col-md-12">
+          <h2>Oracle Stored Proc + Sqoop + Django + Python = Etl Control</h2>
+          <p>Oracle Stored Proc and Sqoop, is the major batch processing tools, Django 2.3 and Python 3 is used to create the Etl Control front tool to control the Execution of batch process, Monitor the current running process and manage user accessing the Etl Control.
+          </p>
+          <p>
+          This front end was developed to monitor the execution of stored proc to ingest the data from oracle to hadoop.</p>
+         <!-- <p><a class="btn btn-default" href="#" role="button">View details »</a></p>  -->
+        </div>
+       <!-- <div class="col-md-4">
+          <a href="#"><img src="{% static 'img/sqoop_logo.jpeg' %}" class='img-responsive' /></a>
+       </div>  -->
+
+<!--
+        <div class="col-md-4">
+        {% if request.user.is_authenticated %}
+        <h3>Hello {{request.user}} </h3>
+
+        {% else %}
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+            <div id="div_id_login" class="form-group"> <label for="id_login" class="control-label  requiredField">
+                Login<span class="asteriskField">*</span> </label> <div class="controls "> <input type="text" name="login" autofocus="autofocus" required="" placeholder="Username or e-mail" class="textinput textInput form-control" id="id_login"> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class="control-label  requiredField">
+                Password<span class="asteriskField">*</span> </label> <div class="controls "> <input type="password" name="password" required="" placeholder="Password" class="textinput textInput form-control" id="id_password"> </div> </div> <div class="form-group"> <div id="div_id_remember" class="checkbox"> <label for="id_remember" class=""> <input type="checkbox" name="remember" class="checkboxinput" id="id_remember">
+                    Remember Me
+                </label> </div> </div>
+  <a class="btn btn-link button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+  <a class="btn btn-link button secondaryAction" href="{% url 'account_signup' %}">Signup</a>
+
+  <button class="btn btn-default primaryAction" type="submit">Sign In</button>
+</form>
+        {% endif %}
+        </div>
+
+-->
+
+      </div>
+{% endblock %}
+

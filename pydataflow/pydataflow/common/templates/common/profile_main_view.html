@@ -1,0 +1,60 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum_user.html' %}
+
+</div>
+
+
+
+
+<!-- admin tasks -->
+
+{% if user.get_username == 'admin' %}
+
+
+
+<div class="container-fluid tbllists-container">
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+       <div class="panel-body">
+      <!--  <table class="table">  -->
+        <tbody>
+                <tr>
+                   <td>
+
+                    <a href="{% url 'update_domain' %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Change Domain Name</a>
+
+                   </td>
+
+
+                </tr>
+        </tbody>
+      <!--  </table>  -->
+        </div>
+    </div>
+</div>
+
+</div>
+{% else %}
+
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

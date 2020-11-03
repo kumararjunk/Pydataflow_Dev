@@ -1,0 +1,232 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>  Azkaban Web Client
+</title>
+
+    <link rel="shortcut icon" href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'azkaban/azkaban/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'azkaban/azkaban/azkaban.css' %}" rel="stylesheet">
+
+
+    <style type="text/css">
+      .navbar-enviro .navbar-enviro-name {
+        color: #FF3601;
+      }
+      .navbar-inverse {
+        border-top: 5px solid #FF3601;
+      }
+      .navbar-inverse .navbar-nav > .active >a {
+        border-bottom: 1px solid #FF3601;
+      }
+    </style>
+
+
+
+    <script src="{% static 'azkaban/azkaban/jquery-1.9.1.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/bootstrap.min.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/underscore-1.4.4-min.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/namespace.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/backbone-0.9.10-min.js' %}"></script>
+
+    <script src="{% static 'azkaban/azkaban/ajax.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/job-log.js' %}"></script>
+    <script src="{% static 'azkaban/azkaban/job-details.js' %}"></script>
+
+
+    <script type="text/javascript">
+      var contextURL = "";
+      var currentTime = 1576185660643;
+      var timezone = "America/Los_Angeles";
+      var errorMessage = null;
+      var successMessage = null;
+
+      var projectName = "cytology_pathology_import";
+      var flowName = "end_pathology_non_partition";
+      var execId = "12891";
+      var jobId = "cppstainprocessdetail:cppstainprocessdetail_sqoop";
+      var attempt = 0;
+    </script>
+  </head>
+  <body style="zoom: 1;">
+
+
+
+<script type="text/javascript">
+      function navMenuClick(url) {
+        window.location.href = url;
+      }
+</script>
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="container-full">
+        <div class="navbar-header">
+            <div class="navbar-logo">
+                <a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/">Azkaban</a>
+                <div class="navbar-version">
+                    3.16.0-2-g0e64646
+                </div>
+            </div>
+
+        </div>
+        <div class="navbar-left navbar-enviro">
+            <div class="navbar-enviro-name">PROD</div>
+            <div class="navbar-enviro-server">Azkaban</div>
+        </div>
+        <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                  <li onclick="navMenuClick(&#39;/&#39;)"><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/index">Projects</a></li>
+                  <li onclick="navMenuClick(&#39;/schedule&#39;)"><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/schedule">Scheduling</a></li>
+                  <!--<li onClick="navMenuClick('/triggers')"><a href="/triggers">Triggers</a></li>-->
+                  <li class="active" onclick="navMenuClick(&#39;/executor&#39;)">
+                      <a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor">Executing</a></li>
+                  <li onclick="navMenuClick(&#39;/history&#39;)"><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/history">History</a></li>
+
+                              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor?execid=12891&amp;job=cppstainprocessdetail:cppstainprocessdetail_sqoop#" class="dropdown-toggle" data-toggle="dropdown">azkaban <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor?logout">Logout</a></li>
+                      </ul>
+                  </li>
+              </ul>
+                  </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+    <div class="az-page-header page-header-bare">
+      <div class="container-full">
+        <div class="row">
+          <div class="header-title">
+            <h1><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor?execid=12891&amp;job=cppstainprocessdetail:cppstainprocessdetail_sqoop">Job Execution <small>cppstainprocessdetail:cppstainprocessdetail_sqoop</small></a></h1>
+          </div>
+          <div class="header-control">
+            <div class="pull-right header-form">
+              <a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/manager?project=cytology_pathology_import&amp;flow=cppstainprocessdetail_cleanup&amp;job=cppstainprocessdetail_sqoop" class="btn btn-info btn-sm">Job Properties</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-breadcrumb">
+      <div class="container-full">
+        <ol class="breadcrumb">
+          <li><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/manager?project=cytology_pathology_import"><strong>Project</strong> cytology_pathology_import</a></li>
+          <li><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/manager?project=cytology_pathology_import&amp;flow=end_pathology_non_partition"><strong>Flow</strong> end_pathology_non_partition</a></li>
+          <li><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor?execid=12891#jobslist"><strong>Execution</strong> 12891</a></li>
+          <li class="active"><strong>Job</strong> cppstainprocessdetail:cppstainprocessdetail_sqoop</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="container-full">
+
+      <div class="alert alert-dismissable alert-messaging" id="messaging">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p id="messaging-message"></p>
+      </div>
+
+
+      <ul class="nav nav-tabs nav-sm" id="headertabs">
+          <li class="active" id="jobLogViewLink"><a href="http://ttgbk-pr-hadp-8.ttgtpmg.net:8081/executor?execid=12891&amp;job=cppstainprocessdetail:cppstainprocessdetail_sqoop#logs">Job Logs</a></li>
+          </ul>
+    </div>
+
+
+    <div class="container-full container-fill" id="jobLogView">
+      <div class="row">
+        <div class="col-xs-12 col-content">
+          <div class="log-viewer">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="pull-right">
+                  <button type="button" id="updateLogBtn" class="btn btn-xs btn-default">Refresh</button>
+                </div>
+                Job Logs
+              </div>
+              <div class="panel-body">
+                <pre id="logSection">
+<!-- {{ logfile }}  -->
+
+              </pre>
+
+
+<p class="classloader">Click Here</p>
+<div id="logSection"></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container-full">
+      <div class="modal" id="messageDialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" id="messageTitle">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+            <div class="modal-body" id="messageDiv">
+              <p id="messageBox"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+$(function(){
+  $(".classloader").click(function(){
+    alert('here');
+    // $("#logSection").load("https://www.w3.org/TR/PNG/iso_8859-1.txt");
+    var url = "{{logfile}}";
+    $("#logSection").load(url);
+    //$("#logSection").load("/Users/arjunkumar/Desktop/notes2/pre-prod/front_end/PyDataFlow_Local/PyDataFlow/pydataflow/logs/2019-12-09/etl_mgmt_test/13_26_job_flow_job_name_test_etl_mgmt_script_2019-12-09-02:54:02.log");
+  });
+});
+
+
+// $(function(){
+//   $("#logSection").click(function() {
+//     $.ajax({
+//         url: "{{ logfile }}",
+//         async: false,   // asynchronous request? (synchronous requests are discouraged...)
+//         cache: false,   // with this, you can force the browser to not make cache of the retrieved data
+//         dataType: "text",  // jQuery will infer this, but you can set explicitly
+//         success: function( data, textStatus, jqXHR ) {
+//             var resourceContent = data; // can be a global variable too...
+//             // process the content...
+//         }
+//     });
+// });
+
+
+
+// $(document).ready(function() {
+//     $("#logSection").click(function() {
+//         $.ajax({
+//             url : "{{ logfile }}",
+//            async: false,   // asynchronous request? (synchronous requests are discouraged...)
+//            cache: false,   // with this, you can force the browser to not make cache of the retrieved data
+//             dataType: "text",
+//             success : function (data) {
+//                 $(".text").html(data);
+//             }
+//         });
+//     });
+// });
+
+
+</script>
+
+</body></html>

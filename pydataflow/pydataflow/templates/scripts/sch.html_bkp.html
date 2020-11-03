@@ -1,0 +1,37 @@
+[
+
+          {"data": "jobflowdetail.jobflowname.project_name.project_name",
+            "render": function(data, type, full, meta) {
+              return '<a href=' + "/index/?q=" + data + '>' + data + '</a>';
+            } },
+
+            {"data": "jobflowdetail.jobflowname",
+            "render": function(data, type, row, meta) {
+              return '<a href=' + "/jobflowdetail/" + data.id + '>' + data.jobflowname + '</a>';
+            } },
+
+
+            // {"data": "jobflowdetail.project_job_name"},
+
+
+            // {"data": "jobflowdetail.project_job_name"},
+
+            // {data: "jobflowdetail",
+            // "render": function (data, type, row)
+            // { if ( row.job_type == 'Job Flow')
+            //     { return "Job Flow"; }
+
+            //   else
+            //     { return jobflowdetail.project_job_name; }
+            // }
+            // },
+
+            // {"data": "job_type"},
+            // {"data": "etl_sch_time"},
+
+            // {"data": "delete_cron",
+            //    "render": function(data, type, full, meta) {
+            //     return '<a href="'+data+'">Remove Cron</a>';
+            //   } },
+
+          ]

@@ -1,0 +1,100 @@
+{% extends 'common/base_common_multiselect.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<div class="header">
+    {% include 'common/breadcrum.html' %}
+<div class="container-fluid tbllists-container">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+    <div class="row">
+            <div class="col-xs-2">
+                <select name="from[]" id="search" class="multiselect form-control" size="8" multiple="multiple" data-right="#multiselect_to_1" data-right-all="#right_All_1" data-right-selected="#right_Selected_1" data-left-all="#left_All_1" data-left-selected="#left_Selected_1">
+
+        {% if job_type == 'Stored_Proc' %}
+            {% for obj in spname_list %}
+                    <option  <li>{{obj.report_name}}</li>  </option>
+            {% endfor %}
+
+         {% elif job_type == 'Table' %}
+            {% for obj in table_list %}
+                <option  <li>{{obj.result_table}}</li>  </option>
+            {% endfor %}
+
+        {% elif job_type == 'Shell_Script' %}
+            {% for obj in shell_scripts %}
+                    <option  <li>{{obj.job_name}}</li>  </option>
+            {% endfor %}
+
+        {% endif %}
+
+                </select>
+                <div>
+                <a href="{% url 'scripts:select_obj_type' jobflows.id %}"
+                class="btn btn-primary btn-sm" role="button">Change Table/Stored Proc/Script Selection</a>
+                </div>
+            </div>
+
+        <div class="col-xs-1">
+            <button type="button" id="right_All_1" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+            <button type="button" id="right_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+            <button type="button" id="left_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+            <button type="button" id="left_All_1" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+        </div>
+
+        <div class="col-xs-2">
+            <form action="{% url 'scripts:select_obj' jobflows.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <select title="my_options" name="new_tbls" id="search_to" class="form-control" size="8" multiple="multiple">
+
+            </select>
+
+            {{ form }}
+
+            <input type="submit" value="Add Stored Proc/Scripts/Tables in Jobflow">
+            </form>
+        </div>
+        <!-- 3rd window  existing tables: # -->
+        <div class="col-xs-2">
+
+            <form action="{% url 'scripts:select_obj' jobflows.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <select name="delete_tble_list[]" class="searchable" id="search_too" class="form-control" size="8" multiple="multiple">
+
+            {% for obj in existing_obj %}
+                   <option  <li>{{obj.job_name}}</li>  </option>
+            {% endfor %}
+                </select>
+
+             <input type="submit" value="Remove Objects from Jobflow">
+
+             </form>
+
+        </div>
+             </div>
+           </div>
+        </div>
+       </div>
+   </div>
+</div>
+
+{% endblock %}
+
+
+

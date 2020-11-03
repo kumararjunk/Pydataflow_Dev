@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Project access{% endblock %}
+
+{% block content %}
+  <h2>Project list</h2>
+
+  <p>
+    <a href="{% url 'project_add' %}">Request access to the Projects</a>
+  </p>
+
+{% if project_access %}
+
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Project name</th>
+        <th>Project owner</th>
+        <th>Email id</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for access in project.project_access_set.all %}
+
+        <tr>
+          <!--<td><a href="{% url 'project_change' access.pk %}">{{ access.name }}</a></td>   -->
+          <td>{{ access.project_name }}</td>
+          <td>{{ access.project_owner }}</td>
+          <td>{{ access.project_owner_email }}</td>
+          <td>{{ access.role }}</td>
+          <td> {{ access.status }} </td>
+          <td> {{ access.access }} </td>
+
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+<!--
+
+<h2>No access request sumited or no project created.</h2>
+
+          <td colspan="4">No access request sumited or no project created. <a href="{% url 'project_add' %}">Add the first access</a>.</td>
+
+        -->
+
+   {% endif %}
+
+{% endblock %}

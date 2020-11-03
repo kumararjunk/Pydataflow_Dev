@@ -1,0 +1,180 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if messages %}
+{% if 'signed' not in messages or 'Successfully' not in messages%}
+<div class="container-fluid tbllists-container">
+    <div class="col-sm-12 col-md-12">
+
+        <ul class="messages">
+        {% for message in messages %}
+
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+
+        {% endfor %}
+        </ul>
+
+    </div>
+</div>
+{% endif %}
+{% endif %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+<div class="container-fluid tbllists-container">
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+       <div class="panel-body">
+      <!--  <table class="table">  -->
+
+                <tr>
+                   <td>
+                    <a href="{% url 'scripts:select_obj_type' jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Add/Remove Jobs</a>
+
+
+                   </td>
+
+
+                </tr>
+
+      <!--  </table>  -->
+        </div>
+    </div>
+</div>
+
+
+
+ <!--Job Flow Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     <table class="table">
+        <thead>
+                <tr>
+                <th>Jobflow Name</th>
+                <th>Is active</th>
+                </tr>
+         </thead>
+        <tbody>
+                <tr>
+                    <td>{{ jobflow.jobflowname }}</td>
+                    <td>{{ jobflow.is_active }}</td>
+                <td>
+                    <a href="{% url 'meta:exe_jobflow' project.id jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+                </td>
+
+                <td>
+                <form action="{% url 'sch:sch_wizard_generic' project.id jobflow.id 0 1 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ jobflow.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Schedule
+                        </button>
+                </form>
+                </td>
+
+
+                </tr>
+
+        </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
+ <!--Job Flow Info End-->
+
+
+
+
+<div class="container-fluid tbllists-container">
+ <!--Job Flow Detail Info -->
+ <div class="col-sm-12 col-md-12">
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+              <!--  <th>Job Flowname </th>  -->
+                <th>Project Object Name</th>
+                <th>Jobflow Job Name</th>
+                <th>Job Type</th>
+                <th>Additional Param </th>
+
+
+                <th>Priority id</th>
+                <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for job in jobflow.jobflowdetail_set.all %}
+                <tr>
+                <!--    <td>{{ jobflow.jobflowname }}</td>  -->
+                    <td>{{ job.project_job_name }} </td>
+                    <td>{{ job.job_name }}</td>
+
+                    <td>{{ job.job_type }}</td>
+                    <td>{{ job.additional_param }}</td>
+
+                    <td>{{ job.priority_id }}</td>
+                    <td>{{ job.is_active }}</td>
+
+
+                    <td>
+                        <a href="{% url 'scripts:jobflowdetailUpdate' jobflow.id job.id %}"
+                     class="btn btn-primary btn-sm btn-warning" role="button">Update</a>
+
+                      <a href="{% url 'meta:exe_jobs' project.id jobflow.id job.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+                    </td>
+
+                    <td>
+                      <form action="{% url 'sch:sch_wizard_generic' project.id jobflow.id job.id 2 %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="spname_id" value="{{ job.id }}" />
+                            <button type="submit" class="btn btn-primary btn-sm btn-success">
+                                <span class="glyphicon glyphicon-calendar"></span>&nbsp;Schedule
+                            </button>
+                        </form>
+
+                    </td>
+
+
+
+
+
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+                  <!--   <a href="{% url 'sch:sch_main_view' project.id jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Scheudle JobFlow</a>
+
+                     <a href="{% url 'logview:processlog' %}"
+                      class="btn btn-primary btn-sm btn-primary" role="button">Logs</a>  -->

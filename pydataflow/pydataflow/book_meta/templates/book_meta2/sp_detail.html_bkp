@@ -1,0 +1,113 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+<div class="container-fluid tbllists-container">
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+       <div class="panel-body">
+      <!--  <table class="table">  -->
+        <tbody>
+                <tr>
+                   <td>
+
+                     <a href="{% url 'meta:sp_add' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">(+) SP</a>
+
+                     <a href="{% url 'meta:del_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">(-) SP</a>
+
+                     <a href="{% url 'meta:project-spbulk-update' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">SP Bulk Update</a>
+
+
+                     <a href="{% url 'meta:exp_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Export SP</a>
+
+                     <a href="{% url 'meta:imp_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Import SP</a>
+
+                     <a href="{% url 'sch:sch_sp_main_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Scheudle SP</a>
+
+
+
+                   </td>
+
+
+                </tr>
+        </tbody>
+      <!--  </table>  -->
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Report Name</th>
+                <th>Stored Proc Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Med Center</th>
+                <th>Result Table</th>
+                <th>ETL Schedule Time</th>
+                <th>Execution Flag</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for spname in project.spname_set.all %}
+                <tr>
+                    <td>{{ spname.report_name }}</td>
+                    <td>{{ spname.sp_name }}</td>
+                    <td>{{ spname.start_dt }}</td>
+                    <td>{{ spname.end_dt }}</td>
+                    <td>{{ spname.med_center }}</td>
+                    <td>{{ spname.result_table }}</td>
+                    <td>{{ spname.etl_sch_time }}</td>
+                    <td>{{ spname.execution_flag }}</td>
+                    <td>
+
+                    <form action="{% url 'meta:del_sp' project.id spname.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="tbllist_id" value="{{ spname.id }}" />
+                       <!-- <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                        </button>  -->
+
+                    </form>
+                    <a href="{% url 'meta:sp_upd' spname.id %}"
+                     class="btn btn-primary btn-sm btn-warning" role="button">Update</a>
+
+                    <a href="{% url 'meta:exe_sp' project.id spname.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>DSN Name</th>
+                <th>DB Server Name</th>
+                <th>DB User</th>
+                <th>DB Name</th>
+                <th>DB Type</th>
+                <th>DB Port No</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+
+            {% for datasource in project.datasource_set.all %}
+                <tr>
+                    <td>{{ datasource.dsn_name }}</td>
+                    <td>{{ datasource.db_host }}</td>
+                    <td>{{ datasource.db_user }}</td>
+                    <td>{{ datasource.db_name }}</td>
+                    <td>{{ datasource.db_type }}</td>
+                    <td>{{ datasource.db_port_no }}</td>
+
+                    <td>
+
+                    <form action="{% url 'meta:del_dsn' project.id datasource.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="datasource_id" value="{{ datasource.id }}" />
+                        <button type="submit" class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                        </button>
+                    </form>
+
+                </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+###create a new repository on the command line
+
+echo "# PyDataFlow" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/kumararjunk/PyDataFlow.git
+git push -u origin master
+
+
+##push an existing repository from the command line
+
+git remote add origin https://github.com/kumararjunk/PyDataFlow.git
+git push -u origin master
+
+
+
+
+
+git add *.*
+git add -f pydataflow/*
+git add -f static/*
+
+
+git pull origin master
+test2
+
+
+### force overwrite master.
+git push origin dev --force

@@ -1,0 +1,44 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum_user.html' %}
+
+</div>
+
+
+<!-- forms -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+
+                <form action="{% url 'common:project_access_req_validate' %}" method="POST" class="form">
+                {% csrf_token %}
+
+                    {{ proj_access_form.as_p }}
+
+                <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

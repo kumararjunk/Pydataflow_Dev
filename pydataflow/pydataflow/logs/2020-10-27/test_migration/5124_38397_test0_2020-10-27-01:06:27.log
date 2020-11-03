@@ -1,0 +1,36 @@
+2020-10-27 01:06:28,410 - admin - DEBUG -scripts.utils - b'#!/bin/sh\n'
+2020-10-27 01:06:28,411 - admin - DEBUG -scripts.utils - b'\n'
+2020-10-27 01:06:28,411 - admin - DEBUG -scripts.utils - b'echo "Test passed 1"\n'
+2020-10-27 01:06:28,411 - admin - DEBUG -scripts.utils - b"+ echo 'Test passed 1'\n"
+2020-10-27 01:06:28,412 - admin - DEBUG -scripts.utils - b'\n'
+2020-10-27 01:06:28,412 - admin - DEBUG -scripts.utils - b'fname=$1\n'
+2020-10-27 01:06:28,412 - admin - DEBUG -scripts.utils - b'+ fname=1\n'
+2020-10-27 01:06:28,412 - admin - DEBUG -scripts.utils - b'lname=$2\n'
+2020-10-27 01:06:28,413 - admin - DEBUG -scripts.utils - b'+ lname=2\n'
+2020-10-27 01:06:28,413 - admin - DEBUG -scripts.utils - b'num=$3\n'
+2020-10-27 01:06:28,413 - admin - DEBUG -scripts.utils - b'+ num=3\n'
+2020-10-27 01:06:28,413 - admin - DEBUG -scripts.utils - b'echo "fame=${fname}"\n'
+2020-10-27 01:06:28,414 - admin - DEBUG -scripts.utils - b'+ echo fame=1\n'
+2020-10-27 01:06:28,414 - admin - DEBUG -scripts.utils - b'echo "lname=${lname}"\n'
+2020-10-27 01:06:28,414 - admin - DEBUG -scripts.utils - b'+ echo lname=2\n'
+2020-10-27 01:06:28,414 - admin - DEBUG -scripts.utils - b'echo "num=${num}"\n'
+2020-10-27 01:06:28,415 - admin - DEBUG -scripts.utils - b'+ echo num=3\n'
+2020-10-27 01:06:28,415 - admin - DEBUG -scripts.utils - b'\n'
+2020-10-27 01:06:28,415 - admin - DEBUG -scripts.utils - b'x=1\n'
+2020-10-27 01:06:28,415 - admin - DEBUG -scripts.utils - b'+ x=1\n'
+2020-10-27 01:06:28,416 - admin - DEBUG -scripts.utils - b'y=2\n'
+2020-10-27 01:06:28,416 - admin - DEBUG -scripts.utils - b'+ y=2\n'
+2020-10-27 01:06:28,416 - admin - DEBUG -scripts.utils - b'\n'
+2020-10-27 01:06:28,416 - admin - DEBUG -scripts.utils - b'\n'
+2020-10-27 01:06:28,417 - admin - DEBUG -scripts.utils - b'sleep 2;\n'
+2020-10-27 01:06:28,417 - admin - DEBUG -scripts.utils - b'+ sleep 2\n'
+2020-10-27 01:06:30,416 - admin - DEBUG -scripts.utils - b'exit 9\n'
+2020-10-27 01:06:30,416 - admin - DEBUG -scripts.utils - b'+ exit 9\n'
+2020-10-27 01:06:30,417 - admin - ERROR -scripts.utils - scripts:util:exe_script_util:process_id: Warning::Unable to execute the script:sh -xv /Users/arjunkumar/Desktop/notes2/pre-prod/front_end/PyDataFlow_Local/PyDataFlow/pydataflow/core/test.sh, with params:1 2 3 
+NoneType: None
+2020-10-27 01:06:30,417 - admin - ERROR -scripts.utils - scripts:util:exe_script_util:process_id: Warning::Unable to execute the script:sh -xv /Users/arjunkumar/Desktop/notes2/pre-prod/front_end/PyDataFlow_Local/PyDataFlow/pydataflow/core/test.sh, with params:1 2 3 
+NoneType: None
+2020-10-27 01:06:30,418 - admin - ERROR -scripts.utils - process.returncode:9
+NoneType: None
+2020-10-27 01:06:30,418 - admin - ERROR -scripts.utils - process.returncode:9
+NoneType: None

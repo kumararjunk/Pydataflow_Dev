@@ -1,0 +1,89 @@
+{% extends 'common/base_common_multiselect.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<div class="header">
+    {% include 'common/breadcrum.html' %}
+<div class="container-fluid tbllists-container">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+    <div class="row">
+            <div class="col-xs-2">
+                <select name="from[]" id="search" class="multiselect form-control" size="8" multiple="multiple" data-right="#multiselect_to_1" data-right-all="#right_All_1" data-right-selected="#right_Selected_1" data-left-all="#left_All_1" data-left-selected="#left_Selected_1">
+
+                {% for tbllist in all_initial_tables %}
+
+                    <option  <li>{{tbllist.table_names}}</li>  </option>
+                {% endfor %}
+                </select>
+                <div>
+                <a href="{% url 'meta:select_dsn' project.id %}"
+                class="btn btn-primary btn-sm" role="button">Change Table/View Selection</a>
+                </div>
+            </div>
+
+        <div class="col-xs-1">
+            <button type="button" id="right_All_1" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+            <button type="button" id="right_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+            <button type="button" id="left_Selected_1" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+            <button type="button" id="left_All_1" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+        </div>
+
+        <div class="col-xs-2">
+            <form action="{% url 'meta:select_src_tables' project.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!--<select title="my_options" name="to[]" id="search_to" class="form-control" size="8" multiple="multiple"> -->
+
+            <select title="my_options" name="new_tbls" id="search_to" class="form-control" size="8" multiple="multiple">
+
+            </select>
+
+            {{ form }}
+
+            <input type="submit" value="Import Raw Tables">
+            </form>
+        </div>
+        <!-- 3rd window  existing tables: # -->
+        <div class="col-xs-2">
+
+            <form action="{% url 'meta:select_src_tables' project.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <select name="delete_tble_list[]" class="searchable" id="search_too" class="form-control" size="8" multiple="multiple">
+
+            {% for tbllist in existing_table_list %}
+                   <option  <li>{{tbllist.table_name}}</li>  </option>
+            {% endfor %}
+                </select>
+
+             <input type="submit" value="Delete Tables/Views">
+
+             </form>
+
+        </div>
+             </div>
+           </div>
+        </div>
+       </div>
+   </div>
+</div>
+
+{% endblock %}
+
+
+

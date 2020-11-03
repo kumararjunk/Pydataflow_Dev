@@ -1,0 +1,88 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}Add or Update Job Detail{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+{% block body %}
+<div class="row">
+    <div class='col-sm-5 col-sm-offset-1'>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class='col-sm-11'>
+                    <h2>Update Job Detail</h2>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                   <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-0 col-sm-10">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-sm-offset-0">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Table Property</h2>
+
+                    <h3>Report Name & SP Name</h3>
+                    <p>Report Name for which data will be imported.
+                        Name of sp, including Package Name.
+                    </p>
+
+                    <h3>Start Date & End Date</h3>
+                    <p>Filter on Start and End date of Report.
+                    </p>
+
+                    <h3>Med Center</h3>
+                    <p>List of Med Center, Required for Report.
+                    </p>
+
+                    <h3>Result Table</h3>
+                    <p>Report Table name in Hive.
+                    </p>
+
+                    <h3>Etl Scheudle Time</h3>
+                    <p>Scheulde time to run the Stored Proc.
+                    </p>
+
+                    <h3>Schedule frequency:</h3>
+                    <p>Frequency of Execution, i.e. Daily,Weekly, Monthly or Request</p>
+                    <h3>Execution Flag</h3>
+                    <p>Stored Proc will be executed if the flag is Y, for N flag execution will skip it.</p>
+                </div>
+            </div>
+    </div>
+
+<style>
+.row {
+    margin-right: -5px;
+    margin-left: -120px;
+}
+
+</style>
+
+</div>
+
+{% endblock %}
+
+
+

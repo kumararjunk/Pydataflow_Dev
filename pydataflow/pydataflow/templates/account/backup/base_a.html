@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}ETL Management{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.ico' %}"/>
+
+    <!-- Bootstrap css -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+    <link href="{% static 'bootstrap-4.1.3/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap jquery -->
+       <script src="{% static 'bootstrap-4.1.3/js/jquery.min.js' %}"></script>
+
+    <!-- bootstram min.js  3.4.0-->
+      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+  <script src="{% static 'bootstrap-4.1.3/js/bootstrap.min.js' %}"></script>
+  </head>
+
+  <body>
+
+{#     {% include 'common/navbar.html' %} #}
+
+  <div class="container theme-showcase" role="main">
+
+        {% block content %}
+        {% endblock %}
+
+        {% block styles %}
+        {% endblock %}
+
+        {% block body %}
+        {% endblock %}
+
+        {% block js %}
+        {% endblock %}
+
+  </div>
+
+  </body>
+</html>

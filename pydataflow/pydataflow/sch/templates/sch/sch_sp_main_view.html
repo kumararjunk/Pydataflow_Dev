@@ -1,0 +1,127 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+ <!--Project Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     <table class="table">
+        <thead>
+                <tr>
+                <th>Project Name</th>
+                <th>Email</th>
+            <!--    <th>Etl Schedule</th>  -->
+                <th>Is active</th>
+                </tr>
+         </thead>
+        <tbody>
+                <tr>
+                    <td>{{ project.project_name }}</td>
+                    <td>{{ project.email_notification }}</td>
+                <!--    <td>{{ project.etl_sch_time }}</td>   -->
+                    <td>{{ project.is_active }}</td>
+                    <td>
+
+                        <form action="{% url 'sch:sch_wizard_generic' project.id 0 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ project.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Sch Project
+                        </button>
+                        </form>
+
+                        <form action="{% url 'sch:sch_remove_cron' project.id 0 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ project.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-warning">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Un-Sch Project
+                        </button>
+                        </form>
+
+
+                    </td>
+
+                   <td>
+                    <a href="{% url 'meta:exe_sp_all' project.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+                   </td>
+                </tr>
+
+        </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
+ <!--Project Info End-->
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Report Name</th>
+                <th>Stored Proc Name</th>
+                <th>Etl Schedule</th>
+                <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for spname in project.spname_set.all %}
+                <tr>
+                    <td>{{ spname.report_name }}</td>
+                    <td>{{ spname.sp_name }}</td>
+                <!--    <td>{{ spname.etl_sch_time }}</td>   -->
+                    <td>{{ spname.is_active }}</td>
+                    <td>
+
+                    <form action="{% url 'sch:sch_wizard_generic' project.id spname.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="spname_id" value="{{ spname.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Sch Table
+                        </button>
+                    </form>
+
+                    <form action="{% url 'sch:sch_remove_cron' project.id spname.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="spname_id" value="{{ spname.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-warning">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Un-Sch Table
+                        </button>
+                    </form>
+
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+

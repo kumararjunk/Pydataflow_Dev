@@ -1,0 +1,46 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Logout{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block body %}
+
+<style>
+.panel-default {
+    border-color: #ddd;
+    width: 400px;
+    height: 200px;
+}
+
+</style>
+
+<body class="text-center">
+  <div class="col-sm-4 col-sm-offset-4">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+<h1>{% trans "Sign Out" %}</h1>
+
+<p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+<form method="post" action="{% url 'account_logout' %}">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+  {% endif %}
+  <button type="submit">{% trans 'Sign Out' %}</button>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</body>
+
+{% endblock %}

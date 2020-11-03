@@ -1,0 +1,50 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+
+{% block srcsystems_active %}active{% endblock %}
+
+{% block body %}
+<div class="albums-container container-fluid">
+
+    <!-- Sources -->
+    <div class="row">
+
+        {% if projects %}
+            {% for project in projects %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+
+<div class="caption">
+    <h4>{{ project.project_name }}</h2>
+   <!-- <h4>Is Active: {{ project.is_active }}</h4>  -->
+
+    <!-- View Details -->
+    <a href="{% url 'scripts:jobflow_index' project.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+    <a href="{% url 'meta:project_update' project.id %}" class="btn btn-primary btn-sm" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+
+    </div>
+</div>
+</div>
+        {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'meta:project_create' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Project
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+<!-- If user searches and there are tables -->
+
+</div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,156 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+
+ <!--Project Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     <table class="table">
+        <thead>
+                <tr>
+                <th>Project Name</th>
+                <th>Email_notification</th>
+
+                <th>Is_active</th>
+                </tr>
+         </thead>
+        <tbody>
+
+                <tr>
+                    <td>{{ project.src_name }}</td>
+                    <td>{{ project.email_notification }}</td>
+
+                    <td>{{ project.is_active }}</td>
+                    <td>
+<!--                        <form action="{% url 'meta:import_src_system_property' srcsystem.id  %}" method="post" style="display: inline;">    -->
+                        <form action="{% url 'meta:import_sp' project.id %}" method="post" enctype="multipart/form-data" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="file" name="myfile"  />
+                        <button type="submit" >Upload</button>
+
+
+                        </form>
+
+                    </td>
+                    <td>
+
+                    <form action="{% url 'meta:import_src_system_all_item' srcsystem.id  %}" method="post" enctype="multipart/form-data" style="display: inline;">
+                        {% csrf_token %}
+
+                        <input type="file" name="myfile"  />
+                        <button type="submit" >Upload</button>
+
+                        </form>
+
+                        <!--
+                            <form action="{% url 'meta:export_src_system_all_objects' srcsystem.id  %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="srcsystem_id" value="{{ srcsystem.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-import"></span>&nbsp;Import All Objects
+                        </button>
+                        </form>
+                    -->
+
+
+
+                   </td>
+
+                </tr>
+
+        </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
+ <!--Project Info End-->
+
+
+
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Report Name</th>
+                <th>Stored Proc Name</th>
+                <th>Start Dt</th>
+                <th>End Dt</th>
+                <th>Med Center</th>
+                <th>Result Table</th>
+                <th>Etl Schedule time</th>
+                <th>Execution flag</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tbllist in srcsystem.tbllist_set.all %}
+                <tr>
+                    <td>{{ tbllist.Report_name }}</td>
+                    <td>{{ tbllist.Sp_name }}</td>
+                    <td>{{ tbllist.Start_dt }}</td>
+                    <td>{{ tbllist.End_dt }}</td>
+                    <td>{{ tbllist.Med_center }}</td>
+                    <td>{{ tbllist.Result_table }}</td>
+                    <td>{{ tbllist.ETL_schedule_time }}</td>
+                    <td>{{ tbllist.Execution_flag }}</td>
+                    <td>
+
+                <!---    <form action="{% url 'meta:export_src_system_individual_objects' srcsystem.id tbllist.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="tbllist_id" value="{{ tbllist.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-import"></span>&nbsp;Import
+                        </button>
+                    </form>   -->
+
+                        <form action="{% url 'meta:import_src_system_individual_item' srcsystem.id %}" method="post" enctype="multipart/form-data" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="file" name="myfile"  />
+                        <button type="submit" >Upload</button>
+
+
+                        </form>
+
+
+
+
+
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+
+        </div>
+    </div>
+
+  </div>
+
+
+
+
+
+</div>
+
+</div>
+
+{% endblock %}

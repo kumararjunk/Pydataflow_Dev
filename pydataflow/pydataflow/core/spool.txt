@@ -1,0 +1,9 @@
+select 'start SP call ' || SYSTIMESTAMP FROM DUAL;
+
+select 'end SP call ' || SYSTIMESTAMP FROM DUAL;
+
+
+select 'start spoolfile call ' || SYSTIMESTAMP FROM DUAL;
+
+
+select 'end spoolfile call ' || SYSTIMESTAMP FROM DUAL;

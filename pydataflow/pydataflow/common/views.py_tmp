@@ -1,0 +1,127 @@
+
+###drop down demo
+from django.shortcuts import render
+from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse_lazy
+
+# path('', views.PersonListView.as_view(), name='person_changelist'), 1
+    # path('add/', views.PersonCreateView.as_view(), name='person_add'), 2
+    # path('<int:pk>/', views.PersonUpdateView.as_view(), name='person_change'), 3
+    # path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
+
+
+    path('projectListView/', views.projectListView.as_view(), name='project_changelist'), #1
+    path('add/', views.ProjectCreateView.as_view(), name='project_add'),  #2
+    path('<int:pk>/', views.ProjectUpdateView.as_view(), name='project_change'),  #3
+    path('ajax/load-emails/', views.load_emails, name='ajax_load_emails'),
+
+    # url(r'^project_access_request_tmp/$', common_views.project_access_request_tmp, name='project_access_request_tmp'),
+    # path('add_project_access_request_tmp/', views.project_access_request_tmp.as_view(), name='project_access_request_tmp'),
+    # path('ajax/load-email/', views.load_email, name='ajax_load_email'),
+
+    url(r'^projectaccessListView/$', views.projectaccessListView, name='projectaccessListView'),
+
+
+from view file
+
+from .models import Person, City
+from .forms import PersonForm, PersonFormtmp
+
+
+class PersonListView(ListView):
+    model = Person
+    context_object_name = 'people'
+    template_name = 'hr/person_list.html'
+
+# class PersonUpdateView(UpdateView):
+#     model = Person
+#     form_class = PersonForm
+#     success_url = reverse_lazy('person_changelist')
+
+# class PersonCreateView(CreateView):
+#     model = Person
+#     form_class = PersonForm
+#     template_name = 'hr/person_form.html'
+#     success_url = reverse_lazy('person_changelist')
+
+# def load_cities(request):
+#     country_id = request.GET.get('country')
+#     cities = City.objects.filter(country_id=country_id).order_by('name')
+#     return render(request, 'hr/city_dropdown_list_options.html', {'cities': cities})
+
+
+##end of drop down demo
+
+# class projectListView(ListView):
+#     model = Project_access
+#     context_object_name = 'project_access'
+#     template_name = 'hr/project_list.html'
+
+class projectListView(ListView):
+    model = Project_access
+    context_object_name = 'project_access'
+    template_name = 'hr/project_list.html'
+
+def projectaccessListView(request):
+    if not request.user.is_authenticated:
+        return render(request, 'account/login.html')
+    else:
+        user = request.user
+        requester_user = request.user
+        requester_user_id = requester_user.id
+        project = Project.objects.filter(requester_id=request.user.id)
+        print('projectaccessListView:', projectaccessListView, 'request.user:', request.user.id, 'project type:', type(project), project)
+
+        return render(request, 'common/profile_project_list.html', {'project': project, 'user': user})
+
+
+# def sp_detail(request, project_id):
+#     if not request.user.is_authenticated:
+#         return render(request, 'account/login.html')
+#     else:
+#         user = request.user
+#         project = get_object_or_404(Project, pk=project_id)
+#         return render(request, 'meta/sp_detail.html', {'project': project, 'user': user})
+
+# def projectaccessListView(request):
+#     context = {}
+#     requester_user = request.user
+#     requester_user_id = requester_user.id
+#     print('projectaccessListView:', projectaccessListView, 'request.user:', request.user.id, type(request.user.id))
+#     project = Project_access.objects.filter(requester_id=request.user.id)
+
+#     # template = 'common/profile_main_view.html'
+#     template = 'hr/project_list.html'
+
+
+#     return render(request, template, context)
+#     if request.user.is_authenticated:
+#         return render(request, template, context)
+#     else:
+#         return render(request, 'account/login.html')
+
+
+class ProjectUpdateView(UpdateView):
+    model = Person
+    form_class = PersonForm
+    success_url = reverse_lazy('project_changelist')
+
+
+class ProjectCreateView(CreateView):
+    model = Person
+    form_class = PersonForm
+    template_name = 'hr/project_form.html'
+    success_url = reverse_lazy('project_changelist')
+
+def load_emails(request):
+    # project = Project.objects.get(project_name='mlab_report')
+    # project_id = project.id
+    # project_owner_id = project.user_id
+    # # cities = User.objects.get(id=project_owner_id)
+    # cities = User.objects.get(id=1)
+    # print('load_emails', load_emails)
+
+    country_id = request.GET.get('country')
+    cities = City.objects.filter(country_id=country_id).order_by('name')
+
+    return render(request, 'hr/city_dropdown_list_options.html', {'cities': cities})

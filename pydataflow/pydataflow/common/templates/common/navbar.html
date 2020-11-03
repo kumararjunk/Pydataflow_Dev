@@ -1,0 +1,124 @@
+{% load staticfiles %}
+
+<style>
+#brand-image
+{
+  height: 25px;
+}
+</style>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+      </button>
+
+<!--    <a class="navbar-brand" href="{% url 'about_us' %}">
+      <img id="brand-image" alt="Website Logo" src="{% static 'common/images/Kaiser_Permanente.jpg' %}" />
+    </a>
+-->
+
+
+<!--
+   <a class="navbar-brand" href="{% url 'meta:index' %}">
+   <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;ETL Management - PROD </a>
+-->
+
+   <a class="navbar-brand" href="{% url 'meta:index' %}">
+   <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;ETL Management - Pre-PROD </a>
+
+    </div>
+
+
+
+
+
+
+
+
+
+<div class="collapse navbar-collapse" id="navbar" >
+  <ul class="nav navbar-nav">
+
+{% if request.user.is_authenticated %}
+
+
+
+
+
+
+
+  <!--{% url 'common:home' as home %}  -->
+
+
+
+  <li class=""><a href="{% url 'meta:project_create' %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Project</a> </li>
+
+
+    <form class="navbar-form navbar-left" role="search" method="get" action="#">
+        <div class="form-group">
+          {% if 'q' in request.GET %}
+            <input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="Find Project">
+          {% else %}
+
+          <input type="text" class="form-control" name="q" value="" placeholder="Find Project">
+
+          {% endif%}
+        </div>
+        <button type="submit" class="btn btn-default">Search </button>
+    </form>
+
+
+  <li class=""><a href="{% url 'sch:schedule' %}"><span aria-hidden="true"></span>&nbsp; Schedule</a> </li>
+  <li class=""><a href="{% url 'logview:processlog' %}"><span aria-hidden="true"></span>&nbsp; Logs</a> </li>
+
+  <li class=""><a href="{% url 'meta:advance_search' %}"><span aria-hidden="true"></span>&nbsp; Advance Search</a> </li>
+
+
+
+  </ul>
+{% endif %}
+
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" >
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  >Account <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+
+          <li><a href="{% url 'common:about_us' %}">About us</a></li>
+
+          <li><a href="#">version 1.1</a></li>
+
+          <li><a href="#">User: {{ user.username }}</a></li>
+
+          <li><a href="{% url 'common:profile_main_view' %}">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Settings</a></li>
+
+          {% if not request.user.is_authenticated %}
+
+          <li><a href="{% url 'account_login' %}">
+          <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Login</a></li>
+
+          <li><a href="{% url 'account_signup' %}">Signup</a></li>
+          {% else %}
+
+          <li><a href="{% url 'account_logout' %}">
+          <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout</a></li>
+
+          {% endif %}
+          <!--<li class="dropdown-header">Nav header</li>
+          <li><a href="#">Separated link</a></li>  -->
+          </ul>
+        </li>
+    </ul>
+
+</div>
+</div>
+</nav>
+

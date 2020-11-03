@@ -1,0 +1,74 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}Add a New Stored Proc{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+<div class="header">
+<style>
+.panel-body {
+    padding: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Right Srcsystem Info -->
+        <div class="col-sm-8 col-sm-offset-2">
+            <ul class="nav nav-pills" style="margin-bottom: 5px;">
+                <li role="presentation"><a href="{% url 'meta:sp_detail' project.id %}">View All</a></li>
+                <li role="presentation" class="active"><a href="{% url 'meta:sp_add' project.id %}">Add New SP</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-0 col-sm-4">
+                            <button type="submit" class="btn btn-success">Add Stored Proc</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+<!--
+    {# {{ form.project_name }}
+                    {{ form.dsn_name }}
+                    {{ form.report_name }}
+
+                    {{ form.sp_name }}
+                    {{ form.start_dt }}
+                    {{ form.end_dt }}
+
+                    {{ form.med_center }}
+                    {{ form.result_table }}
+                    {{ form.is_active }} #}
+
+                    -->

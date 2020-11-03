@@ -1,0 +1,82 @@
+{# {% extends 'common/base.html' %} #}
+{% extends 'common/base_common_multiselect.html' %}
+
+{# {% extends 'common/base_common_multiselect.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if messages %}
+{% if 'signed' not in messages %}
+<div class="container-fluid tbllists-container">
+    <div class="col-sm-12 col-md-12">
+
+        <ul class="messages">
+        {% for message in messages %}
+
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+
+        {% endfor %}
+        </ul>
+
+    </div>
+</div>
+{% endif %}
+{% endif %}
+
+<!--
+<div class="container-fluid project-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'common:project_filter' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorites' %}class="active"{% endif %}><a href="{% url 'common:project_filter' 'favorites' %}">Favorites</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+-->
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Project Name</th>
+                <th>Access Role</th>
+                <th>Status</th>
+                <th>Submit Request</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for spname in project.spname_set.all %}
+                <tr>
+                    <td>{{ spname.report_name }}</td>
+                    <td>{{ spname.sp_name }}</td>
+                    <td>{{ spname.start_dt }}</td>
+                    <td>{{ spname.end_dt }}</td>
+                    <td>
+                    <a href="{% url 'meta:exe_sp' project.id spname.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Submit Request</a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+
+

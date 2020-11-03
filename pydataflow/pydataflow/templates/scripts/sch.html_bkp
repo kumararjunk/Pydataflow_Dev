@@ -1,0 +1,89 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% block title %}{{ process_logs }}{% endblock %}
+
+{# {% load crispy_forms_tags %} #}
+
+{% block body %}
+
+<div class="header">
+<meta charset="utf-8">
+<title>Process Logs</title>
+
+<!--  <link href="{% static 'process_log/css/p_bootstrap.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'process_log/css/p_dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+</div>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="schedules" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+           <!-- <th>#</th>  -->
+          <th>Project Name</th>
+          <th>Jobflow Name</th>
+          <th>Project Job Name</th>
+          <th>Job Type</th>
+          <th>Cron Expression</th>
+          <th>Remove Scheudle</th>
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'process_log/js/p_jquery-1.12.4.js' %}"></script>
+<script src="{% static 'process_log/js/p_jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'process_log/js/p_dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+  $(document).ready(function() {
+      var table = $('#schedules').DataTable({
+          "serverSide": true,
+          "ajax": "/api/schedule/?format=datatables",
+          "columns": [
+
+            {"data": "project_name.project_name",
+            "render": function(data, type, full, meta) {
+              return '<a href=' + "/index/?q=" + data + '>' + data + '</a>';
+            } },
+
+            {"data": "jobflowname",
+            "render": function(data, type, row, meta) {
+              return '<a href=' + "/jobflowdetail/" + data.id + '>' + data.jobflowname + '</a>';
+            } },
+
+            // {"data": "jobflowdetail.project_job_name"},
+
+            // {data: "jobflowdetail",
+            // "render": function (data, type, row)
+            // { if ( row.job_type == 'Job Flow')
+            //     { return "Job Flow"; }
+
+            //   else
+            //     { return jobflowdetail.project_job_name; }
+            // }
+            // },
+
+            // {"data": "job_type"},
+            // {"data": "etl_sch_time"},
+
+            // {"data": "delete_cron",
+            //    "render": function(data, type, full, meta) {
+            //     return '<a href="'+data+'">Remove Cron</a>';
+            //   } },
+
+          ]
+      });
+  });
+
+</script>
+
+</body>
+</html>
+
+{% endblock %}

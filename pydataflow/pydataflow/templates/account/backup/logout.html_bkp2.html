@@ -1,0 +1,48 @@
+{% extends "account/base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+
+{% block styles %}
+<style>
+.container {
+    width: 30%;
+    padding-top: 150px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- <h1>{% trans "Sign In" %}</h1>  -->
+
+<!--
+<p>{% blocktrans %}If you have not created an account yet, then please
+<a href="{{ signup_url }}">sign up</a>{% endblocktrans %}</p>  -->
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+        <a class="button secondaryAction" href="{{ signup_url }}">{% trans "Sign up" %}</a>
+        <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+    </form>
+
+{% endblock %}
+
+{% block js %}
+  <!-- <link href="{% static 'common/signin.css' %}" rel="stylesheet"> -->
+  <!--  <link href="{% static 'common/fade.css' %}" rel="stylesheet">  -->
+{% endblock %}

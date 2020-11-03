@@ -1,0 +1,105 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}Add a New Source System{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block js %}
+<script>
+  $(document).ready(function() {
+
+    if ( $('input[name="failure_email_ind"]').is(':checked') ) {
+            $('#id_failure_email').attr('readonly', true);
+        }
+
+    $('#id_failure_email_ind').change(function(){
+
+        if ( $('input[name="failure_email_ind"]').is(':checked') ) {
+            $('#id_failure_email').attr('readonly', true);
+        }
+
+        else {
+            $('#id_failure_email').attr('readonly', false);
+        }
+
+    });
+
+
+
+   });
+</script>
+
+{% endblock %}
+
+
+{% block body %}
+<!--<div class="container-fluid">  -->
+
+    <div class="row">
+        <div class='col-sm-5 col-sm-offset-1'>
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+
+                    <div class='col-sm-11'>
+
+                    <h3>Add New Project</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+
+                   <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {{ form|crispy }}
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-0 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                   </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!--<h3>Detailed Description of Properties</h3> -->
+                    <h2>User name </h2>
+                    <p>User name, having the full access on the project </p>
+                    <h2>Project Name</h2>
+                    <p>Project name to store SP/Table Metadata</p>
+                    <h2>Hdfs Dir</h2>
+                    <p>HDFS Path for Hive Tables</p>
+
+                    <h2>Email notification</h2>
+                    <p>email ids, to be notified for success or failure of job execution</p>
+
+                    <h2>ETL Scheudle</h2>
+                    <p>Execution time for project</p>
+
+                    <h2>Is Active</h2>
+                    <p>Check this box if Data can be pulled from this source system, if its unchecked then scheudled ingestion will not import any data from these source system</p>
+                    <h2>max_num_of_threads</h2>
+                    <p>Maximum number of Threads can run in Parallel, Default number is 5</p>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+<!--  </div>  -->
+{% endblock %}

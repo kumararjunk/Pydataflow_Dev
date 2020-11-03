@@ -1,0 +1,32 @@
+SET HEADING OFF;
+set arraysize 1
+set linesize 32767;
+set pagesize 0;
+SET NEWPAGE 0;
+SET SPACE 0;
+SET ECHO OFF;
+SET FEEDBACK OFF;
+SET VERIFY OFF;
+SET MARKUP HTML OFF;
+SET NEWP 0 SPACE 0 PAGES 0 ;
+SET TRIMOUT ON;
+SET FEED OFF;
+SET TRIMSPOOL ON;
+
+--SET TERMOUT OFF;
+
+
+VARIABLE rsltout REFCURSOR;
+
+
+
+
+SPOOL log_dir/Report_name_data.txt
+
+print rsltout;
+Spool OFF;
+
+EXECUTE nc_group_rltg.pkg_nc_rltg_report.sp_rpt_monitor(NULL,'sp_name',NULL,SYSTIMESTAMP,'C','Report execution is completed', NULL, NULL);
+
+exit;
+

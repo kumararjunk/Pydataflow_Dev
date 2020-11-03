@@ -1,0 +1,41 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}}varification sent{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block body %}
+
+<style>
+.panel-default {
+    border-color: #ddd;
+    width: 400px;
+    height: 400px;
+}
+
+</style>
+
+<body class="text-center">
+  <div class="col-sm-4 col-sm-offset-4">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+
+    <h1>{% trans "Verify Your E-mail Address" %}</h1>
+
+    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+
+{% endblock %}

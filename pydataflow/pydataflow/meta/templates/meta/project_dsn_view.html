@@ -1,0 +1,113 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+
+<div class="col-sm-12 col-md-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+
+     <!--   <div class="col-sm-12">
+                <br>
+                <a href="{% url 'meta:dsn_bulk_update' project.id %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add DSN
+                    </button>
+                </a>
+            </div>  -->
+
+            <a href="{% url 'meta:dsn_bulk_update' project.id  %}"
+                    class="btn btn-primary btn-sm btn-play" role="button">Add Multiple DSN
+            </a>
+
+            <a href="{% url 'meta:dsn_add' project.id  %}"
+                    class="btn btn-primary btn-sm btn-play" role="button">(+) DSN
+            </a>
+
+            <a href="{% url 'meta:del_dsn_view' project.id  %}"
+                    class="btn btn-primary btn-sm btn-play" role="button">(-) DSN
+            </a>
+
+
+
+</div>
+</div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+<div class="panel panel-default">
+
+{# {% if projects %} #}
+
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>DSN Name</th>
+                <th>Db Host</th>
+                <th>Db Name</th>
+                <th>Db User</th>
+                <th>Db Type</th>
+                <th>Db PortNo</th>
+                <th>Db Param</th>
+            <!--    <th>Dsn_Status</th>  -->
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for dsn in project.datasource_set.all %}
+                <tr>
+                    <td>{{ dsn.dsn_name }}</td>
+                    <td>{{ dsn.db_host }}</td>
+                    <td>{{ dsn.db_name }}</td>
+                    <td>{{ dsn.db_user }}</td>
+                    <td>{{ dsn.db_type }}</td>
+                    <td>{{ dsn.db_port_no }}</td>
+                    <td>{{ dsn.db_param }}</td>
+                <!--    <td>{{ dsn.dsn_status}} </td> -->
+
+                <td>
+                    <a href="{% url 'meta:dsn-update' dsn.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Update</a>
+
+                </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{# {% else %} #}
+
+<!--            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'meta:dsn_bulk_update' project.id %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add DSN
+                    </button>
+                </a>
+            </div>  -->
+{# {% endif %} #}
+
+
+
+
+  </div>
+</div>
+
+<!-- add edit and delete button -->
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,65 @@
+
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ access_status }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum_user.html' %}
+
+</div>
+
+
+
+
+<!-- forms -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+<div class="panel-body">
+    <table class="table">
+            <thead>
+                <tr>
+                <th>Project Name</th>
+                <th>Project Owner</th>
+                <th>Project Owner Email</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>access</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for access in project.project_access_set.all %}
+                <tr>
+                    <td>{{ access.project_name }}</td>
+                    <td>{{ access.project_owner }}</td>
+                    <td>{{ access.project_owner_email }}</td>
+                    <td>{{ access.justification }}</td>
+                    <td>{{ access.status }}</td>
+                    <td>{{ access.role }}</td>
+                    <td>{{ access.access }}</td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+    </table>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

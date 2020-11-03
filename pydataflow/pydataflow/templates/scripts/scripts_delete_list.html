@@ -1,0 +1,71 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                <th>Job Name</th>
+                <th>Script Path name</th>
+                <th>Additional param</th>
+                <th>Priority id</th>
+
+                <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for scripts in project.script_set.all  %}
+                <tr>
+                    <td>{{ scripts.job_name }}</td>
+                    <td>{{ scripts.job_name.script_path_name }}</td>
+                    <td>{{ scripts.additional_param }}</td>
+                    <td>{{ scripts.priority_id }}</td>
+
+                    <td>{{ scripts.is_active }}</td>
+                    <td>
+
+                    <form action="{% url 'scripts:del_script' project.id scripts.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="scripts_id" value="{{ scripts.id }}" />
+                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?');">
+                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                        </button>
+                    </form>
+
+                </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+
+
+
+{% endblock %}

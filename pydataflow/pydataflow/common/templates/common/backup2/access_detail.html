@@ -1,0 +1,79 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project_access }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum_user.html' %}
+
+</div>
+
+<!-- forms -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+<div class="panel-body">
+    <table class="table">
+        <form id="form-id" method="post">
+            {% csrf_token %}
+            <thead>
+                <tr>
+                <th>Project_name</th>
+                <th>Requester Name</th>
+                <th>Requester Email</th>
+                <th>Notes</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>access</th>
+                <th>Approve/Revoke Access</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for access in project.project_access_set.all %}
+                <tr>
+                    <td>{{ access.project_name }}</td>
+                    <td>{{ access.user }}</td>
+                    <td>{{ access.requester_email }}</td>
+                    <td>{{ access.notes }}</td>
+                    <td>{{ access.role }}</td>
+                    <td>{{ access.status }}</td>
+                    <td>{{ access.access }}</td>
+
+                    <td>
+        <!--<form> -->
+        {% if access.access is True %}
+        <!-- <input  type = "submit" value="Submit">  -->
+        <a href="{% url 'common:project_access_status_update' project.id access.id 0 %}"
+         class="btn btn-primary btn-sm btn-warning" role="button">Revoke Access</a>
+        {% else %}
+        <!--<input  type = "submit" value="Submit">  -->
+        <a href="{% url 'common:project_access_status_update' project.id access.id 1 %}"
+         class="btn btn-primary btn-sm btn-success" role="button">Approve Access</a>
+         {% endif %}
+         </form>
+
+
+
+
+                </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

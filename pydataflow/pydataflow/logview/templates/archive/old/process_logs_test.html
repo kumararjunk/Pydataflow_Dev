@@ -1,0 +1,68 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Process Logs</title>
+  <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">-->
+  <link href="{% static 'process_log/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'process_log/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+ <h1> process_logs_test</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="processlogs" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>test_Process_id</th>
+              <th>Project Name</th>
+              <th>Jobflow Name</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Elapsed Time</th>
+
+               <th>Status</th>
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+ <!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script> -->
+
+<script src="{% static 'process_log/js/jquery-1.12.4.js' %}"></script>
+<script src="{% static 'process_log/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'process_log/js/dataTables.bootstrap4.min.js' %}"></script>
+
+
+<script>
+  $(document).ready(function() {
+      var table = $('#processlogs').DataTable({
+          "serverSide": true,
+          "ajax": "/api/processlog/?format=datatables",
+          "columns": [
+              {"data": "process_id", "searchable": false},
+              {"data": "jobflowname.project_name.project_name"},
+              {"data": "project_job_name"}, //, "project_job_name": "jobflowdetail.project_job_name"
+              {"data": "start_time"},
+              {"data": "end_time_check"},
+              {"data": "elapsed_time"},
+
+              {"data": "status"},
+              // {"data": "job_name"},
+              //{"data": "job_name", "job_name": "jobflow.job_name", "sortable": false},
+          ]
+      });
+  });
+</script>
+</body>
+</html>

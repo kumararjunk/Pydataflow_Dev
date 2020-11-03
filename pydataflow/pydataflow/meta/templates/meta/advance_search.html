@@ -1,0 +1,262 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% block title %}{{ process_logs }}{% endblock %}
+
+{# {% load crispy_forms_tags %} #}
+
+{% block body %}
+<style>
+
+/*.container {*/
+#toggle-btn {
+
+  margin-right:auto;
+  margin-left:auto;
+  padding-left:15px;
+  padding-right:15px;
+  text-align:center;
+  align-content:center;
+}
+
+
+
+.row {
+    margin-right: -50px;
+    margin-left: -50px;
+    font-size: 12px;
+}
+
+</style>
+
+
+<div class="header">
+<meta charset="utf-8">
+<title>Process Logs</title>
+
+<!--  <link href="{% static 'process_log/css/p_bootstrap.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'process_log/css/p_dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+</div>
+
+<body>
+
+
+<div id="toggle-btn" class="container" >
+  <div class="row">
+    <div class="col-sm-12">
+  <div class="btn-group">
+    <button type="button" id="btn-spname" class="btn btn-primary">Search By SP Name</button>
+    <button type="button" id="btn-jobflow" class="btn btn-primary">Search By Jobflow</button>
+
+
+  </div>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+  <div id="spname"  class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="projecspnameobjects" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>report_name Name</th>
+              <th>Sp name</th>
+                <th>Jobflownames</th>
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'logview/js/p_jquery-1.12.4.js' %}"></script>
+<script src="{% static 'logview/js/p_jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'logview/js/p_dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+  $(document).ready(function() {
+      var table = $('#projecspnameobjects').DataTable({
+          "iDisplayLength": 50,
+          //"serverSide": true,
+          "serverSide": false,
+          "ajax": "/api/projecspnameobjects/?format=datatables",
+          "columns": [
+
+          {"data": "project_name.project_name",
+            "render": function(data, type, full, meta) {
+              return '<a href=' + "/index/?q=" + data + '>' + data + '</a>';
+            } },
+
+            {"data": "report_name"},
+            {"data": "sp_name"},
+           // {"data": "jobflowdetailed_id"},
+
+          //  {"data": "jobflowdetailed_id",
+          //   "render": function(data, type, full, meta) {
+          //     return '<a href=' + "/jobflowdetail/" + data + '>' + 'data' + '</a>';
+          //   } },
+
+                    // console.log(data);
+                    //return '<a href=' + "/jobflowdetail/" + data + '>' + 'data' + '</a>';
+
+
+            {"data": "jobflowdetailed_id",
+                   "render": function(data, type, row){
+                    var jobflowdetailed_id = row.jobflowdetailed_id;
+                    var jobflowdetailed_idarray =  jobflowdetailed_id.split(";");
+                    // console.log(jobflowdetailed_id)
+
+                    ReturnString = ''
+
+                    for(var i=0; i<(jobflowdetailed_idarray.length); i++){
+                      var jobflow_name = jobflowdetailed_idarray[i].split(",")[0];
+                      var jobflowname_id = jobflowdetailed_idarray[i].split(",")[1];
+                      var jobflowname_id_str = "/jobflowdetail/" + jobflowname_id + "/"
+
+                      if (jobflow_name === "None" | jobflowname_id === 'undefined' | jobflow_name === "" )   {
+                          }
+                      else {
+                         ReturnString += '<a href=' +   jobflowname_id_str + '>' + jobflow_name + ", " + '</a>';
+                       }
+                     }
+                    return ReturnString;
+                  }
+              },
+
+
+
+
+
+
+
+
+
+
+
+
+
+           ]
+
+      });
+  });
+</script>
+
+
+
+
+
+
+
+  <div id="jobflow"  class="container" style="display:none">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="projecjobflowdetailtobjects" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Jobflow Name</th>
+             <th>Project Job name</th>
+             <th>Job name</th>
+             <th>Job type</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'logview/js/p_jquery-1.12.4.js' %}"></script>
+<script src="{% static 'logview/js/p_jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'logview/js/p_dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+  $(document).ready(function() {
+      var table = $('#projecjobflowdetailtobjects').DataTable({
+          "iDisplayLength": 50,
+          "serverSide": true,
+          "ajax": "/api/projecjobflowdetailtobjects/?format=datatables",
+          "columns": [
+
+            {"data": "jobflowname.project_name.project_name",
+            "render": function(data, type, full, meta) {
+              return '<a href=' + "/index/?q=" + data + '>' + data + '</a>';
+            } },
+
+              //{"data": "jobflowname.jobflowname"},
+
+              {"data": "jobflowname.jobflowname"},
+              {"data": "project_job_name"}, // object name
+             {"data": "job_name"},
+
+             {"data": "job_type"},
+
+           ]
+
+      });
+  });
+</script>
+
+
+
+<script>
+  $(document).ready(function() {
+
+      $("#btn-spname").click(function(){
+
+        $("#spname").show();
+        $("#jobflow").hide();
+
+        $('#btn-spname').prop('disabled',true);
+        $('#btn-jobflow').prop('disabled',false);
+      });
+
+    $("#btn-jobflow").click(function(){
+
+      $("#spname").hide();
+      $("#jobflow").show();
+
+      $('#btn-jobflow').prop('disabled',true);
+      $('#btn-spname').prop('disabled',false);
+    });
+
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+
+$(document).on('click', 'a', function(e){
+    e.preventDefault();
+    ////var hostName = $(location).attr('hostname');
+    var url = $(this).attr('href');
+
+    //alert('url: '+ url)
+    if ((url.includes('/process_detail/')) || (url.includes('/index/')))
+    {     //alert('url: '+ url)
+          window.open(url, '_blank');
+    }
+    else {
+      //alert('not in new page url: '+ url)
+      window.open(url, '_self')
+    }
+
+
+});
+</script>
+
+</body>
+</html>
+
+{% endblock %}

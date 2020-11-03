@@ -1,0 +1,120 @@
+{% extends "common/base_common_datatable.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container-fluid tbllists-container">
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+       <div class="panel-body">
+      <!--  <table class="table">  -->
+        <tbody>
+                <tr>
+                   <td>
+
+                     <a href="{% url 'meta:sp_add' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">(+) SP</a>
+
+                     <a href="{% url 'meta:del_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">(-) SP</a>
+
+                     <a href="{% url 'meta:project-spbulk-update' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">SP Bulk Update</a>
+
+
+                     <a href="{% url 'meta:exp_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Export SP</a>
+
+                     <a href="{% url 'meta:imp_sp_view' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Import SP</a>
+
+
+                     <a href="{% url 'meta:sp_exec_status' project.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Execution Status</a>
+
+                   </td>
+
+
+                </tr>
+        </tbody>
+      <!--  </table>  -->
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-12">
+      <!--<h2>Table Details</h2>  -->
+      <table id="myTable1" class="table">
+        <thead>
+          <tr>
+            <th>DSN name</th>
+            <th>Table_name</th>
+            <th>Result table</th>
+            <th>Table type</th>
+            <th>Priority id</th>
+            <th>Import utility</th>
+            <th>Custom cmd</th>
+            <th>Additional param</th>
+            <th>Etl Sch Time</th>
+            <th>Execution flag</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {# {% for person in person_list %} #}
+{#           {% for tbl in project.tbllist_set.all %} #}
+
+          {% for tbl in Tbl_list %}
+            <tr>
+              <td>{{ tbl.dsn_name }}</td>
+              <td>{{ tbl.table_name }}</td>
+              <td>{{ tbl.result_table }}</td>
+              <td>{{ tbl.table_type }}</td>
+              <td>{{ tbl.priority_id }}</td>
+              <td>{{ tbl.import_utility }}</td>
+              <td>{{ tbl.custom_cmd }}</td>
+              <td>{{ tbl.additional_param }}</td>
+              <td>{{ tbl.etl_sch_time }}</td>
+              <td>{{ tbl.is_active }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+ <!--   <div class="col-md-6">
+      <h2>Contatos via JSON</h2>
+      <table id="myTable2" class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Gênero FOTTER</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  -->
+
+
+  </div>
+
+  <hr>
+
+</div> <!-- /container -->
+
+{% endblock content %}
+
+{% block js %}
+
+<script src="{% static 'js/data.js' %}"></script>
+
+
+{% endblock js %}

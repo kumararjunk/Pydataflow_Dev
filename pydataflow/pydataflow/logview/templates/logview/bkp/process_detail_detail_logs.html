@@ -1,0 +1,105 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% block title %}{{ process_logs }}{% endblock %}
+
+{# {% load crispy_forms_tags %} #}
+
+{% block body %}
+
+
+<div class="header">
+<meta charset="utf-8">
+<title>Process Logs</title>
+<link href="{% static 'process_log/css/p_dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+</div>
+
+<body>
+
+
+
+<style>
+
+.panel-body {
+  padding:35px;
+  padding-top:10px;
+  background-color:rgba(255, 255, 255, 1);
+}
+
+.logSection {
+  background-color:rgb(255, 255, 255, 1);
+}
+
+</style>
+
+<!--<h1>trying to access the file {{ logfile }}</h1>  -->
+
+
+
+<div class="container-full container-fill" id="jobLogView">
+      <div class="row">
+        <div class="col-xs-12 col-content">
+          <div class="log-viewer">
+            <div class="panel panel-default">
+            <!--  <div class="panel-heading">
+                <div class="pull-right">
+                  <button type="button" id="updateLogBtn" class="btn btn-xs btn-default">Refresh</button>
+                </div>
+
+                Detailed Logs:
+              </div>   -->
+              <div class="panel-body">
+                <pre id="logSection">
+                  {{ file_content }}
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+<script src="{% static 'logview/js/p_jquery-1.12.4.js' %}"></script>
+<script src="{% static 'logview/js/p_jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'logview/js/p_dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'logview/js/get_data.js' %}"></script>
+
+
+
+<script src="{% static 'azkaban/azkaban/jquery-1.9.1.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/bootstrap.min.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/underscore-1.4.4-min.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/namespace.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/backbone-0.9.10-min.js' %}"></script>
+
+<script src="{% static 'azkaban/azkaban/ajax.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/job-log.js' %}"></script>
+<script src="{% static 'azkaban/azkaban/job-details.js' %}"></script>
+
+
+<!--<script>
+
+// $(document).ready(function() {
+//     $("#logSection").click(function() {
+//         $.ajax({
+//             url : "{{ logfile }}",
+//            async: false,   // asynchronous request? (synchronous requests are discouraged...)
+//            cache: false,   // with this, you can force the browser to not make cache of the retrieved data
+//             dataType: "text",
+//             success : function (data) {
+//                 $(".text").html(data);
+//             }
+//         });
+//     });
+// });
+
+
+</script>  -->
+
+</body>
+</html>
+
+{% endblock %}

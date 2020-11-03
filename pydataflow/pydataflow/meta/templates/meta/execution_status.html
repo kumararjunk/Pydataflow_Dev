@@ -1,0 +1,58 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+<div class="container-fluid tbllists-container">
+ <!--Table Info -->
+ <div class="col-sm-12 col-md-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+
+                <th>Report Name</th>
+                <th>Proc Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Process Time</th>
+                <th>Status</th>
+                <th>Remark</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for rpt_monitor in project.report_monitor_set.all %}
+            <!--add the filter on source system id-->
+                <tr>
+                    <td>{{ rpt_monitor.report_name }}</td>
+                    <td>{{ rpt_monitor.procedure_name }}</td>
+                    <td>{{ rpt_monitor.start_time }}</td>
+                    <td>{{ rpt_monitor.end_time }}</td>
+                    <td>{{ rpt_monitor.process_time }}</td>
+                    <td>{{ rpt_monitor.status }}</td>
+                    <td>{{ rpt_monitor.remark }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+
+        </div>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}Add a New Source System{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Update Table/Stored Proc. Property</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'common/form_template.html' %}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Table Property</h2>
+
+                    <h3>Report Name & SP Name</h3>
+                    <p>Report Name for which data will be imported.
+                        Name of sp, including Package Name.
+                    </p>
+
+                    <h3>Start Date & End Date</h3>
+                    <p>Filter on Start and End date of Report.
+                    </p>
+
+                    <h3>Med Center</h3>
+                    <p>List of Med Center, Required for Report.
+                    </p>
+
+                    <h3>Result Table</h3>
+                    <p>Report Table name in Hive.
+                    </p>
+
+                    <h3>Etl Scheudle Time</h3>
+                    <p>Scheulde time to run the Stored Proc.
+                    </p>
+
+                    <h3>Schedule frequency:</h3>
+                    <p>Frequency of Execution, i.e. Daily,Weekly, Monthly or Request</p>
+                    <h3>Execution Flag</h3>
+                    <p>Stored Proc will be executed if the flag is Y, for N flag execution will skip it.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

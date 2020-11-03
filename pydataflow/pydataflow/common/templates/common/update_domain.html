@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+{% block title %}Update Domain name{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="header">
+<style>
+.panel-body {
+    padding: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Right Srcsystem Info -->
+        <div class="col-sm-8 col-sm-offset-2">
+            <ul class="nav nav-pills" style="margin-bottom: 5px;">
+            <li role="presentation" class="active"><a>Update Domain name</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <!-- <h3>Update Domain name</h3>  -->
+                    <h3>Info: ETL Management is Running on Host: {{ request.META.HTTP_HOST }}</h3>
+
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-4">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+

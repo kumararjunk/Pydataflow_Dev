@@ -1,0 +1,8 @@
+TTGBK-PR-HADP-8.TTGTPMG.NET
+
+sudo yum install python3-dev
+
+sudo yum install python-devel   # for python2.x installs
+sudo yum install python3-devel
+
+

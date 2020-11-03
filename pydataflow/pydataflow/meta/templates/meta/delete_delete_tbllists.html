@@ -1,0 +1,89 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}All Tbllists {% endblock %}
+{% block tbllists_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid tbllists-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'meta:tbllists' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'is_active' %}class="active"{% endif %}><a href="{% url 'meta:tbllists' 'is_active' %}">Active Tables</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Source Name</th>
+                                <th>Tbl Name</th>
+                                <th>Tbl type</th>
+                                <th>Is Active</th>
+                                <th>Import Utility</th>
+                                <th>Grp name</th>
+                                <th>mapclmnjava</th>
+                                <th>user defined sqls</th>
+                                <th>incr column name</th>
+                                <th>incr column values</th>
+                                <th>user defined sqoop cmd</th>
+                                <th>additional params</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tbllist in users_tbllists %}
+                                <tr>
+                                    <td>{{ tbllist.src_name }}</td>
+                                    <td>{{ tbllist.table_names }}</td>
+                                    <!--<td>-->
+                                        <!--<a target="_blank" href="{{ tbllist.audio_file.url }}">-->
+                                            <!--<button type="button" class="btn btn-success btn-xs">-->
+                                                <!--<span class="glyphicon glyphicon-play"></span>&nbsp; Play-->
+                                            <!--</button>-->
+                                        <!--</a>-->
+                                    <!--</td>-->
+                                    <td>{{ tbllist.table_type }}</td>
+                                    <td>
+                                        <!--<a href="{% url 'sqoop:favorite' tbllist.id %}" >-->
+                                           <!--<input type="radio" >-->
+                                            <!--<span  {% if tbllist.is_active %}active{% endif %}"></span></a>-->
+
+                                        <a href="{% url 'meta:favorite' tbllist.id %}" class="btn-favorite">
+                                     <span class="glyphicon glyphicon-star {% if tbllist.is_active %}active{% endif %}"></span></a>
+
+
+
+                                    </td>
+                                    <td>{{ tbllist.import_utility }}</td>
+                                    <td>{{ tbllist.group_name }}</td>
+                                    <td>{{ tbllist.mapcolumnjava }}</td>
+                                    <td>{{ tbllist.user_defined_sqls }}</td>
+                                    <td>{{ tbllist.incr_column_name }}</td>
+                                    <td>{{ tbllist.incr_column_values }}</td>
+                                    <td>{{ tbllist.user_defined_sqoop_cmd }}</td>
+                                    <td>{{ tbllist.additional_params }}</td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+
+
+<!--<a href="{% url 'sqoop:favorite' tbllist.id %}" class="btn-favorite">-->
+                                     <!--<span class="glyphicon glyphicon-star {% if tbllist.is_active %}active{% endif %}"></span></a>-->

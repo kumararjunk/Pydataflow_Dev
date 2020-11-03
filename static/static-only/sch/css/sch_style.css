@@ -1,0 +1,57 @@
+/* Crontab generator */
+.generatorBlock select {
+    width: auto;
+}
+
+.generator {
+    width: 800px;
+}
+
+.generator select option {
+    padding: 1px 5px;
+}
+
+.generator td {
+    vertical-align: top;
+}
+
+.generator label {
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.generator code {
+    background: #eee;
+}
+
+.generator input {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.generator > tbody > tr > td {
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.generatorBlock > tbody > tr > td {
+    padding-top: 5px;
+    line-height: 24px;
+    padding-left: 30px;
+    padding-right: 15px;
+}
+
+.generatorBlock > tbody > tr > th {
+    height: 25px;
+}
+.generatorBlock {
+    background: none repeat scroll 0 0 #F1F1F1;
+    border-bottom: 1px solid #EEEEEE;
+    width: 300px;
+}
+
+.multipleEntries > tbody > tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/* Crontab generator ends */

@@ -1,0 +1,77 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}Add a New Source System{% endblock %}
+{% block srcsystems_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="row">
+    <div class='col-sm-5 col-sm-offset-1'>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class='col-sm-11'>
+
+                    <h2>Update Jobflow Details</h2>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                   <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-0 col-sm-10">
+                                <button type="submit" class="btn btn-success">Save Jobflow</button>
+
+                            <a href="{% url 'scripts:del_jobflow' jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-primary" role="button">Delete Jobflow </a>
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-sm-offset-0">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!--<h3>Detailed Description of Properties</h3> -->
+                    <h2>Jobflow Name </h2>
+                    <p>Jobflow name should be unique.It organise the  group of tables/stored proce/scripts needs to be imported/executed togather within a Project</p>
+
+                    <h2>Email Notification</h2>
+                    <p>email ids, to be notified for success or failure of job execution</p>
+
+                    <h2>ETL Schedule</h2>
+                    <p>Execution frequence of the jobflow</p>
+
+                    <h2>Max Num Of Threads</h2>
+                    <p>Maximum number of Threads can run in Parallel, Default number is 5</p>
+
+                    <h2>Execution Flag</h2>
+                    <p>Choose the value Y/N to enable/disable it.</p>
+
+                </div>
+            </div>
+    </div>
+
+<style>
+.row {
+    margin-right: -5px;
+    margin-left: -120px;
+}
+
+</style>
+
+</div>
+
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,221 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+ <!--Project Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     <table class="table">
+        <thead>
+                <tr>
+                <th>Project Name</th>
+                <th>Email</th>
+                <th>Etl Schedule</th>
+                <th>Is active</th>
+                </tr>
+         </thead>
+        <tbody>
+                <tr>
+                    <td>{{ project.project_name }}</td>
+                    <td>{{ project.email_notification }}</td>
+                    <td>{{ project.etl_sch_time }}</td>
+                    <td>{{ project.is_active }}</td>
+                    <td>
+
+                       <form action="{% url 'sch:sch_wizard_generic' project.id jobflow.id 0 0 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ project.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Schedule Project
+                        </button>
+                        </form>
+                    {% if project.etl_sch_time != '' %}
+                        <form action="{% url 'sch:sch_remove_cron' project.id jobflow.id 0 0 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ project.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-warning">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Un-Schedule
+                        </button>
+                        </form>
+                    {% endif %}
+
+                    </td>
+
+                 <!--  <td>
+                    <a href="{% url 'meta:exe_project' project.id jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+                    <a href="{% url 'meta:exe_sp_all' project.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+
+
+                   </td> -->
+                </tr>
+
+        </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
+ <!--Project Info End-->
+
+ <!--1Flow Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+     <table class="table">
+        <thead>
+                <tr>
+                <th>jobflow Name</th>
+                <th>Email</th>
+                <th>Etl Schedule</th>
+                <th>Is active</th>
+                </tr>
+         </thead>
+        <tbody>
+                <tr>
+                    <td>{{ jobflow.jobflowname }}</td>
+                    <td>{{ jobflow.email_notification }}</td>
+                    <td>{{ jobflow.etl_sch_time }}</td>
+                    <td>{{ jobflow.is_active }}</td>
+                    <td>
+
+
+
+                        <form action="{% url 'sch:sch_wizard_generic' project.id jobflow.id 0 1 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ jobflow.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-success">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Schedule
+                        </button>
+                        </form>
+                    {% if jobflow.etl_sch_time != '' %}
+                        <form action="{% url 'sch:sch_remove_cron' project.id jobflow.id 0 1 %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="project_id" value="{{ jobflow.id }}" />
+                        <button type="submit" class="btn btn-primary btn-sm btn-warning">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;Un-Schedule
+                        </button>
+                        </form>
+                    {% endif %}
+
+
+                    </td>
+
+            <!--       <td>
+
+                    <a href="{% url 'meta:exe_jobflow' project.id jobflow.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+                   </td>  -->
+                </tr>
+
+        </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
+ <!--1Flow Info End-->
+
+<!--jobflowdetail Info -->
+<div class="container-fluid tbllists-container">
+ <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th>Job Flowname </th>
+                    <th>Job Name</th>
+                    <th>Job Type</th>
+                    <th>Priority id</th>
+                    <th>Etl Schedule</th>
+                    <th>Is active</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for job in jobflow.jobflowdetail_set.all %}
+                    <tr>
+                        <td>{{ jobflow.jobflowname }}</td>
+                        <td>{{ job.job_name }}</td>
+                        <td>{{ job.job_type }}</td>
+                        <td>{{ job.priority_id }}</td>
+                        <td>{{ job.etl_sch_time}} </td>
+                        <td>{{ job.is_active }}</td>
+                        <td>
+                      <!-- add sch type 2 after job id-->
+                        <form action="{% url 'sch:sch_wizard_generic' project.id jobflow.id job.id 2 %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="spname_id" value="{{ job.id }}" />
+                            <button type="submit" class="btn btn-primary btn-sm btn-success">
+                                <span class="glyphicon glyphicon-calendar"></span>&nbsp;Schedule
+                            </button>
+                        </form>
+                    {% if job.etl_sch_time != '' %}
+                        <form action="{% url 'sch:sch_remove_cron' project.id jobflow.id job.id 2 %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="spname_id" value="{{ job.id }}" />
+                            <button type="submit" class="btn btn-primary btn-sm btn-warning">
+                                <span class="glyphicon glyphicon-calendar"></span>&nbsp;Un-Schchedule
+                            </button>
+                        </form>
+                    {% endif %}
+                    </td>
+
+            <!--        <td>
+
+                    <a href="{% url 'sch:sch_exe_jobs' project.id jobflow.id job.id %}"
+                     class="btn btn-primary btn-sm btn-play" role="button">Execute</a>
+
+                      </td>  -->
+
+
+
+                    </tr>
+
+
+
+
+
+                {% endfor %}
+                </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+</div>
+<!--jobflowdetail Info End  -->
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+

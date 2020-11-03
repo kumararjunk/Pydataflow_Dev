@@ -1,0 +1,29 @@
+{% for spname in project.spname_set.all %}
+                <tr>
+                    <td>{{ spname.report_name }}</td>
+                    <td>{{ spname.sp_name }}</td>
+                    <td>{{ spname.start_dt }}</td>
+                    <td>{{ spname.end_dt }}</td>
+                    <td>{{ spname.med_center }}</td>
+                    <td>{{ spname.result_table }}</td>
+                    <td>{{ spname.is_active }}</td>
+                    <td>{{ spname.execution_flag }}</td>
+                    <td style="width: 150px">
+                    <button type="button"
+                          class="btn btn-warning btn-sm js-update-book"
+                          data-url="{% url 'books:book_update' spname.id %}">
+                          <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+
+                    </td>
+                </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No book</td>
+  </tr>
+{% endfor %}
+
+
+
+
+

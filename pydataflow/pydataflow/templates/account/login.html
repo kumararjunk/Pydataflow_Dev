@@ -1,0 +1,66 @@
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% block body %}
+
+<style>
+.panel-default {
+    border-color: #ddd;
+    width: 300px;
+    height: 340px;
+}
+
+</style>
+
+<body class="text-center">
+  <div class="col-sm-4 col-sm-offset-4">
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+
+<div id="formContent">
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+
+        <button class="primaryAction" type="submit">Sign In</button>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <p class="mt-5 mb-3 text-muted"></p>
+      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+      <!--<a class="button secondaryAction" href="{{ signup_url }}">Sign up</a> -->
+      <a class="button secondaryAction" href="{% url 'account_signup' %}">Sign up</a>
+    </div>
+
+      <p class="mt-5 mb-3 text-muted"></p>
+      <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+
+{% endblock %}
+
+{% block js %}
+  <!--  <link href="{% static 'common/signin.css' %}" rel="stylesheet">
+     <link href="{% static 'common/fade.css' %}" rel="stylesheet"> -->
+{% endblock %}
+
+

@@ -1,0 +1,70 @@
+{# {% extends "account/base.html" %} #}
+{% extends 'common/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% block body %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+<body class="text-center">
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+
+    <img src="{% static 'common/images/user.png' %}" alt="" width="200" height="200">
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <!--<form class="form-signin">
+    <form class="form-signin" role="form" action="{% url 'account_login' %}" method="post" enctype="multipart/form-data"> -->
+    <form class="login" role="form" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+
+<!--
+      <label for="inputEmail" class="sr-only">username</label>
+      <input type="text" name="username" id="inputEmail" class="form-control" placeholder="User name" required="" autofocus="">
+
+      <label for="inputPassword" class="sr-only">password</label>
+      <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+-->
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+
+      <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>  -->
+      <!-- <button class="primaryAction" type="submit">Sign In</button> -->
+
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+      <a class="underlineHover">|</a>
+      <a class="button secondaryAction" href="{{ signup_url }}">Sign up</a>
+    </div>
+
+      <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+
+</div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+  <link href="{% static 'common/signin.css' %}" rel="stylesheet">
+    <link href="{% static 'common/fade.css' %}" rel="stylesheet">
+{% endblock %}
+
+

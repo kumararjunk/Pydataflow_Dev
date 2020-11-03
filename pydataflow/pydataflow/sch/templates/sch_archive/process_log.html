@@ -1,0 +1,64 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Process_logs</title>
+
+   <link href="{% static 'process_log/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'process_log/css/bootstrap4.min.css' %}" rel="stylesheet">
+
+
+
+</head>
+
+
+{% block content %}
+
+
+<body>
+<div class="container">
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Process Logs</h2>
+      <table id="myTable1" class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th>Gênero</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for person in person_list %}
+            <tr>
+              <td>{{ person.name }}</td>
+              <td>{{ person.email }}</td>
+              <td>{{ person.phone }}</td>
+              <td>{{ person.get_gender_display }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <hr>
+
+</div> <!-- /container -->
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'process_log/js/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'process_log/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'process_log/js/jquery.dataTables.min.js' %}"></script>
+
+ <script src="{% static 'process_log/js/data3.js' %}"></script>
+
+{% endblock js %}
+</body>

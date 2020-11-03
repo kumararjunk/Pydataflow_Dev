@@ -1,0 +1,62 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+
+{% block srcsystems_active %}active{% endblock %}
+
+{% block body %}
+<div class="header">
+
+{% include 'common/breadcrum.html' %}
+
+
+<div class="albums-container container-fluid">
+
+    <!-- jobflow -->
+    <div class="row">
+        {% if jobflows %}
+            {% for jobflow in jobflows %}
+                <div class="col-sm-4 col-lg-3">
+                    <div class="thumbnail">
+
+                        <div class="caption">
+                        <h2>{{ jobflow.jobflowname }}</h2>
+                        <h4>Number of Jobs: {{ jobflow.jobflowdetail_set.all.count }} </h4>
+
+                        <a href="{% url 'scripts:jobflowdetail' jobflow.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+                        <a href="{% url 'scripts:jobflow_update' jobflow.id %}" class="btn btn-primary btn-sm" role="button">Edit  <span class="glyphicon glyphicon-edit"></span></a>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+
+        {% endif %}
+    </div>
+
+
+<div class="col-sm-12">
+                <br>
+                <a href="{% url 'scripts:create_jobflow' project.id %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add Jobflow
+                    </button>
+                </a>
+</div>
+
+
+</div>
+</div>
+{% endblock %}
+
+
+
+ <!--  <h4>Is Active: {{ jobflow.is_active }}</h4>
+    <h4>Number of Jobs: {{ jobflow.spname_set.all.count }}
+    <h4>Execution Status: {{ jobflow.spname_set.all.count }} </h4>
+
+    <a href="{% url 'meta:sp_detail' jobflow.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+    <a href="{% url 'meta:jobflow_update' jobflow.id %}" class="btn btn-primary btn-sm" role="button"><span class="glyphicon glyphicon-edit"></span></a>
+    <a href="{% url 'scripts:jobflow_create' %}">
+-->

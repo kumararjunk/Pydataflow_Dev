@@ -1,0 +1,30 @@
+SET HEADING OFF;
+set arraysize 1
+set linesize 32767;
+set pagesize 0;
+SET NEWPAGE 0;
+SET SPACE 0;
+SET ECHO OFF;
+SET FEEDBACK OFF;
+SET VERIFY OFF;
+SET MARKUP HTML OFF;
+SET NEWP 0 SPACE 0 PAGES 0 ;
+SET TRIMOUT ON;
+SET FEED OFF;
+SET TRIMSPOOL ON;
+VARIABLE rsltout REFCURSOR;
+
+--Executing the below report:
+EXECUTE nc_group_rltg.sp_name(start_dt,end_dt,med_center,:rsltout)
+SPOOL /appdata/middleware/td2ex-dev-staging/stored_proc/test_dev/etl_control/logs/Report_name_data.txt
+
+print rsltout;
+Spool OFF;
+
+--updating report monitor table:
+--EXECUTE nc_group_rltg.pkg_nc_rltg_report.sp_rpt_monitor(NULL,'sp_name',NULL,SYSTIMESTAMP,'C','Report execution is completed');
+
+EXECUTE nc_group_rltg.pkg_nc_rltg_report.sp_rpt_monitor(NULL,'sp_name',NULL,SYSTIMESTAMP,'C','Report execution is completed', NULL, NULL);
+
+
+exit;

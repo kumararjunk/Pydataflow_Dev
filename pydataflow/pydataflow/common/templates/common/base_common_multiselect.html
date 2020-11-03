@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+   <!--remove the below line glypicon was not showing properly-->
+  <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  -->
+    <link href="{% static 'bootstrap-3.3.6/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+   <!--new links from multiselect sites-->
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  -->
+   <script type="text/javascript" src="{% static 'additional/js/jquery.min.js' %}"></script>
+
+
+
+ <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>  -->
+
+<script type="text/javascript" src="{% static 'additional/js/r298_prettify.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'addtional/js/r298_prettify.min.js' %}"></script> -->
+
+
+
+
+<script type="text/javascript" src="{% static 'javascript/multiselect.min.js' %}"></script>
+<link rel="stylesheet" href='{% static "css/main2.css" %}' />
+
+<link rel="stylesheet" href='{% static "css/m_style.css" %}' />
+<link rel='stylesheet' href='{% static "css/prettify.css" %}' />
+
+<!--- <script async="" src="//www.google-analytics.com/analytics.js"></script>  -->
+<!-- <script src="{% static 'bootstrap-3.3.6/js/analytics.js' %}"></script>  -->
+
+
+<!--
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('.multiselect').multiselect();
+});
+</script>
+-->
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('#search').multiselect({
+        search: {
+            left: '<input type="text" name="q" class="form-control" placeholder="Search..Table in Db." />',
+            right: '<input type="text" name="q" class="form-control" placeholder="Search..Importing tables" />',
+        },
+        fireSearch: function(value) {
+            return value.length > 3;
+        }
+    });
+    $('.searchable').multiselect({
+        search: {
+            left: '<input type="text" name="q" class="form-control" placeholder="Search..Existing Tables/Views" />',
+
+        },
+        fireSearch: function(value) {
+            return value.length > 3;
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+    {% include 'common/navbar.html' %}
+<nav class="navbar navbar-inverse">
+</nav>
+{% block body %}
+{% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+
+    <script src="{% static 'javascript/bootstrap.min.js' %}"></script>
+    <script src="{% static 'javascript/docs.min.js' %}"></script>
+
+</body>
+</html>
+
+

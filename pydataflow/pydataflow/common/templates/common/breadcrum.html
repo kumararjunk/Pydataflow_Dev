@@ -1,0 +1,24 @@
+    <div class="lr-margin content">
+        <div class="breadcrumb-container">
+            <div id="ember419" class="ember-view">
+            <ol class="breadcrumb">
+
+        <li Project Name: <span class="badge">{{ project.project_name  }} </span> </li>
+
+
+<!--        <li  <a>Object Count: <span class="badge">{{ project.spname_set.all.count }}</span></a>  </li>  -->
+
+        <li role="presentation" class="active"><a href="{% url 'meta:dsn_view' project.id %}">DSN</a></li>
+        <li role="presentation"><a href="{% url 'meta:select_dsn' project.id %}">Import Db Objects</a></li>
+        <li role="presentation" class="active"><a href="{% url 'meta:sp_detail' project.id %}">SP Details</a></li>
+
+        <li role="presentation" class="active"><a href="{% url 'scripts:scripts_detail' project.id %}">Shell Scripts</a></li>
+
+        <li role="presentation" class="active"><a href="{% url 'scripts:jobflow_index' project.id %}">Jobflow List</a></li>
+
+
+
+        </ol>
+    </div>
+ </div>
+</div>

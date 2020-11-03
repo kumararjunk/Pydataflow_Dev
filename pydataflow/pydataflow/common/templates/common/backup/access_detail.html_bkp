@@ -1,0 +1,86 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project_access }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<div class="header">
+
+{% include 'common/breadcrum_user.html' %}
+
+</div>
+
+<!-- forms -->
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+<div class="panel-body">
+    <table class="table">
+        <form id="form-id" method="post">
+            {% csrf_token %}
+            <thead>
+                <tr>
+                <th>Project_name</th>
+                <th>Requester</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>access</th>
+                <th>Change Role</th>
+
+                <th>Approve/Revoke Access</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for access in project.project_access_set.all %}
+                <tr>
+                    <td>{{ access.project_name }}</td>
+                    <td>{{ access.user }}</td>
+                    <td>{{ access.justification }}</td>
+                    <td>{{ access.status }}</td>
+                    <td>{{ access.role }}</td>
+                    <td>{{ access.access }}</td>
+                    <td>{{ access.change_role }}</td>
+                    <td>
+
+        <!--<form> -->
+            <select id="lr_action" name="lr_action">
+            <option id="tmp1" name="tmp" value="Master">Master: Full Access </option>
+              <option id="tmp1" name="tmp" value="Developer">Developer: Add/Edit jobs</option>
+              <option id="tmp1" name="tmp" value="Operator">Operator: Only Execute jobs</option>
+            </select>
+
+
+        {% if access.access is True %}
+        <!-- <input  type = "submit" value="Submit">  -->
+        <a href="{% url 'common:project_access_status_update' project.id access.id 0 %}"
+         class="btn btn-primary btn-sm btn-warning" role="button">Revoke Access</a>
+        {% else %}
+        <!--<input  type = "submit" value="Submit">  -->
+        <a href="{% url 'common:project_access_status_update' project.id access.id 1 %}"
+         class="btn btn-primary btn-sm btn-success" role="button">Approve Access</a>
+         {% endif %}
+         </form>
+
+
+
+
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

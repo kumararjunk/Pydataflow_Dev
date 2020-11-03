@@ -1,0 +1,209 @@
+from rest_framework import serializers
+from meta.models import Project, Processlog, Jobflow, Jobflowdetail, Spname, Script
+import datetime
+from datetime import timedelta
+
+class ProjectSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Project
+        fields = (
+            'id', 'project_name'
+        )
+
+        datatables_always_serialize = ('id',)
+
+class JobflowSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    project_name = ProjectSerializer()
+
+    class Meta:
+        model = Jobflow
+        fields = (
+            'id', 'jobflowname', 'project_name'
+        )
+
+        datatables_always_serialize = ('id',)
+
+
+class SpnameSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    # project_name = ProjectSerializer()
+
+    class Meta:
+        model = Spname
+        fields = ['id'] # , 'project_name'] #'job_type' ,'report_name', 'sp_name' ,
+
+        datatables_always_serialize = ('id',)
+
+
+
+class ProcesslogSerializer(serializers.ModelSerializer):
+    jobflowname = JobflowSerializer()
+    start_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    end_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
+    elapsed_time = serializers.SerializerMethodField()
+    end_time_check = serializers.SerializerMethodField()
+
+    DT_RowId = serializers.SerializerMethodField()
+    DT_RowAttr = serializers.SerializerMethodField()
+    log_url = serializers.SerializerMethodField()
+
+    pid = serializers.SerializerMethodField()
+    job_name = serializers.SerializerMethodField()
+
+    executed_job_names = serializers.SerializerMethodField()
+
+    def get_queryset(self):
+        return Processlog.objects.filter(job_type="Job Flow")
+
+    def get_DT_RowId(self, processlog):
+        return 'row_%d' % processlog.pk
+
+    def get_DT_RowAttr(self, processlog):
+        return {'data-pk': processlog.pk}
+
+    def get_log_url(self, processlog):
+        return '/log_detail/%d/' % processlog.pk #+ str(processlog.process_id)
+
+    def get_elapsed_time(self, obj):
+
+        if obj.status == "Executing":
+            # time_diff = datetime.datetime.now() - (obj.start_time.replace(tzinfo=None) + timedelta(hours=16))  #winter
+            time_diff = datetime.datetime.now() - (obj.start_time.replace(tzinfo=None) + timedelta(hours=17))    #summer daylight
+            return str(timedelta(seconds=time_diff.seconds))
+
+        else:
+            time_diff = obj.end_time - obj.start_time
+            return str(timedelta(seconds=time_diff.seconds))
+
+    def get_end_time_check(self, obj):
+
+        if obj.status == "Executing":
+            return 'N/A' #obj.end_time.strftime("%Y-%m-%d %H:%M:%S")
+
+        else:
+            #return (obj.end_time - timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") ##winter
+            return (obj.end_time - timedelta(hours=7)).strftime("%Y-%m-%d %H:%M:%S")  ##summer
+
+    def get_job_name(self, obj):
+
+        return obj.job_name
+
+    def get_pid(self, processlog):
+        if processlog.status == 'Success':
+            return 0
+
+        elif processlog.status == 'Executing':
+            return '/kill_process/%d/%d/%d/' % (processlog.process_id,processlog.id,processlog.pid)
+
+        elif processlog.status == 'Failed':
+            return '/exe_jobflow_rerun/%d/%d/' % (processlog.process_id,processlog.id)
+
+        elif processlog.status == 'Killed':
+            return '/exe_jobflow_rerun/%d/%d/' % (processlog.process_id,processlog.id)
+
+        elif processlog.status == 'In-Complete Run':
+            return '/exe_jobflow_rerun/%d/%d/' % (processlog.process_id,processlog.id)
+
+        else:
+            return 0
+
+    def get_executed_job_names(self, obj):
+
+        return obj.executed_job_names
+
+
+    class Meta:
+        model = Processlog
+        fields = (
+          'DT_RowId', 'DT_RowAttr', 'process_id', 'jobflowname', 'project_job_name'
+          ,'start_time', 'end_time','elapsed_time', 'status', 'end_time_check',
+          'job_type', 'logfile' , 'log_url', 'id', 'job_name', 'pid',
+          'executed_job_names'
+
+          ###3, 'project_name'
+
+        )
+
+
+class DetaillogSerializer(serializers.ModelSerializer):
+    jobflowname = JobflowSerializer()
+    start_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+    end_time = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S")
+
+    elapsed_time = serializers.SerializerMethodField()
+    end_time_check = serializers.SerializerMethodField()
+
+    DT_RowId = serializers.SerializerMethodField()
+    DT_RowAttr = serializers.SerializerMethodField()
+    log_url = serializers.SerializerMethodField()
+
+    pid = serializers.SerializerMethodField()
+    job_name = serializers.SerializerMethodField()
+
+    def get_queryset(self):
+        return Processlog.objects.filter(job_type="Job Flow")
+
+    def get_DT_RowId(self, processlog):
+        return 'row_%d' % processlog.pk
+
+    def get_DT_RowAttr(self, processlog):
+        return {'data-pk': processlog.pk}
+
+    def get_log_url(self, processlog):
+        return '/log_detail/%d/' % processlog.pk #+ str(processlog.process_id)
+
+    def get_elapsed_time(self, obj):
+
+        if obj.status == "Executing":
+            #time_diff = datetime.datetime.now() - (obj.start_time.replace(tzinfo=None) + timedelta(hours=16)) #winter
+            time_diff = datetime.datetime.now() - (obj.start_time.replace(tzinfo=None) + timedelta(hours=17))  #summer daylight
+            return str(timedelta(seconds=time_diff.seconds))
+
+        else:
+            time_diff = obj.end_time - obj.start_time
+            return str(timedelta(seconds=time_diff.seconds))
+
+    def get_end_time_check(self, obj):
+
+        if obj.status == "Executing":
+            # end_time_check = datetime.datetime.now() + obj.start_time.replace(tzinfo=None)
+            return 'N/A'
+
+        else:
+            #return (obj.end_time - timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") ##winter
+            return (obj.end_time - timedelta(hours=7)).strftime("%Y-%m-%d %H:%M:%S")  ##summer
+            # return obj.end_time.strftime("%Y-%m-%d %H:%M:%S") ####obj.end_time
+
+    def get_job_name(self, obj):
+
+        return obj.job_name
+
+    def get_pid(self, processlog):
+        if processlog.status == 'Success':
+            return 0
+
+        elif processlog.status == 'Executing':
+            return '/kill_process/%d/%d/%d/' % (processlog.process_id,processlog.id,processlog.pid)
+
+        elif processlog.status == 'Failed':
+            return '/exe_jobflow_rerun/%d/%d/' % (processlog.process_id,processlog.id)
+
+        elif processlog.status == 'Killed':
+            return '/exe_jobflow_rerun/%d/%d/' % (processlog.process_id,processlog.id)
+        else:
+            return 0
+
+
+    class Meta:
+        model = Processlog
+        fields = (
+          'DT_RowId', 'DT_RowAttr',
+          'process_id', 'jobflowname', 'project_job_name', 'start_time', 'end_time',
+          'elapsed_time', 'status', 'end_time_check', 'job_type', 'logfile' , 'log_url',
+          'id', 'job_name', 'pid'
+          ###3, 'project_name' #, 'Logs'
+        )

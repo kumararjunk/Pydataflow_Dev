@@ -1,0 +1,45 @@
+{# {% extends 'common/base_common.html' %} #}
+{% extends 'common/base.html' %}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+<!--if we need horizontal menu
+<style>
+ ul#id_dsn_name li{
+  display: inline-block;
+  }
+</style>
+-->
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% include 'common/breadcrum.html' %}
+
+<div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+
+                <form action="{% url 'scripts:select_obj' jobflows.id %}" method="POST" class="form">
+                {% csrf_token %}
+
+                    {{ obj_form.as_p }}
+                    {# {{ database_object_form.as_p }} #}
+
+                <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

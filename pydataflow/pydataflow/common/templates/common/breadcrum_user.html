@@ -1,0 +1,31 @@
+    <div class="lr-margin content">
+        <div class="breadcrumb-container">
+            <div id="ember419" class="ember-view">
+            <ol class="breadcrumb">
+
+        <li User Name: <span class="badge">{{ user.username  }} </span> </li>
+        <!--
+            <li <a>User Name: <span class="badge">{{ user.username  }} </span></a> </li>
+        -->
+
+        <li role="presentation" class="active"><a href="{% url 'account_reset_password'  %}">Password Reset</a></li>
+
+        {% if not request.user.is_superuser %}
+        <li role="presentation" class="active"><a href="{% url 'common:project_access_request'  %}">Request Access to the Project</a></li>
+        <li role="presentation" class="active"><a href="{% url 'common:my_project_access_status'  %}">My Access Status</a></li>
+
+        {% endif %}
+
+        <li role="presentation" class="active"><a href="{% url 'common:project_access_req_view'  %}">Approve Access Request</a></li>
+
+
+
+
+
+
+
+
+        </ol>
+    </div>
+ </div>
+</div>

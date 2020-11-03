@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+{# {% extends 'common/base_common.html' %} #}
+{% block title %}{{ project }}{% endblock %}
+{% block projects_active %}active{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<div class="header">
+
+{# {% include 'common/breadcrum.html' %} #}
+
+
+    <h2>DSN in project: </h2>
+    <div>
+        <ul>
+
+            {% for project in object_list %}
+                <li>{{ project.project_name }}  |
+                <!--    <a href="{% url 'meta:project-updated' project.id  %}">edit</a>
+                    <a href="{% url 'meta:project-delete' project.pk %}">delete</a>
+                -->
+                </li>
+            {% empty %}
+                <li>No project yet.</li>
+            {% endfor %}
+
+        </ul>
+
+     <!--        <p>
+            <a href="{% url 'meta:project-add' project.id %}">add a project</a>
+        </p>
+
+-->
+
+
+    </div>
+
+</div>
+{% endblock %}
+
